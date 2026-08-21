@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>R.Consulting — Tracker P2 Belgique · avis + classement</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--ink:#111318;--muted:#9a9ea8;--line:#e2e3e6;--gold:#f59e0b;--terra:#c2552b;--ok:#0e9f6e;--bad:#dc2626}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:#fafafa;color:var(--ink);padding-bottom:60px;-webkit-font-smoothing:antialiased}
+.header{position:sticky;top:0;z-index:10;background:rgba(250,250,250,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:13px 16px;display:flex;align-items:center;gap:11px}
+.logo{width:36px;height:36px;border-radius:11px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem}
+.h-t{flex:1;min-width:0}
+.h-name{font-weight:800;font-size:.92rem}
+.h-sub{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--muted)}
+.total-num{font-size:1.9rem;font-weight:900;letter-spacing:-1.5px;background:linear-gradient(135deg,var(--terra),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1;text-align:right}
+.total-lbl{font-family:'DM Mono',monospace;font-size:.56rem;color:var(--muted);letter-spacing:1px;text-align:right}
+.wrap{max-width:900px;margin:0 auto;padding:14px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:14px}
+.panel h3{font-size:.82rem;font-weight:800;margin-bottom:6px}
+.panel p{font-size:.74rem;color:var(--muted);line-height:1.5;margin-bottom:8px}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap}
+.btn{background:linear-gradient(135deg,var(--terra),var(--gold));color:#fff;border:0;border-radius:10px;padding:10px 15px;font-family:inherit;font-weight:800;font-size:.78rem;cursor:pointer}
+.btn.sec{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.btn:active{transform:scale(.97)}.btn:disabled{opacity:.45;cursor:default}
+#status{font-family:'DM Mono',monospace;font-size:.66rem;color:var(--muted);margin-top:8px;min-height:16px}
+.stats{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.stat{flex:1;min-width:100px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:11px;text-align:center}
+.stat b{display:block;font-size:1.1rem;font-weight:900}
+.stat span{font-family:'DM Mono',monospace;font-size:.53rem;color:var(--muted);letter-spacing:.7px;text-transform:uppercase}
+.chartbox{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:14px}
+table{width:100%;border-collapse:separate;border-spacing:0 6px}
+th{font-family:'DM Mono',monospace;font-size:.56rem;color:var(--muted);letter-spacing:.8px;text-transform:uppercase;text-align:left;padding:0 10px}
+th.r,td.r{text-align:right}
+td{background:#fff;padding:9px 10px;font-size:.78rem;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+td:first-child{border-left:1px solid var(--line);border-radius:12px 0 0 12px;font-weight:700}
+td:last-child{border-right:1px solid var(--line);border-radius:0 12px 12px 0}
+tr.err td{background:#fef7f7;border-color:#f5c6c6}
+.mono{font-family:'DM Mono',monospace;font-weight:700}
+.up{color:var(--ok)}.dn{color:var(--bad)}.zero{color:var(--muted)}
+.kw{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--muted)}
+.pos1{color:var(--ok)}.pos2{color:var(--gold)}.posx{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo">R.</div>
+  <div class="h-t"><div class="h-name">Tracker P2 Belgique</div><div class="h-sub">avis Google + classement local · 46 fiches</div></div>
+  <div><div class="total-num" id="grand">—</div><div class="total-lbl">AVIS TOTAL</div></div>
+</div>
+<div class="wrap">
+
+<div class="panel">
+  <h3>Actions</h3>
+  <p>Étape 1 une seule fois. Ensuite : Avis quand tu veux (gratuit ou presque) · Classements 1-2×/semaine (consomme ton quota SerpApi : 1 recherche par fiche).</p>
+  <div class="btnrow">
+    <button class="btn sec" id="btnResolve" onclick="resolveAll()">1 · Lier les fiches</button>
+    <button class="btn" id="btnAvis" onclick="refreshAvis()">Actualiser AVIS</button>
+    <button class="btn" id="btnRank" onclick="refreshRanks()">Actualiser CLASSEMENTS</button>
+    <button class="btn sec" onclick="exportData()">Export</button>
+  </div>
+  <div id="status"></div>
+</div>
+
+<div class="stats">
+  <div class="stat"><b id="sToday">—</b><span>avis auj.</span></div>
+  <div class="stat"><b id="sTop3">—</b><span>fiches top 3</span></div>
+  <div class="stat"><b id="sAvgPos">—</b><span>position moy.</span></div>
+  <div class="stat"><b id="sSnaps">0</b><span>snapshots</span></div>
+  <div class="stat"><b id="sOk">0/46</b><span>liées</span></div>
+</div>
+
+<div class="chartbox"><canvas id="chart" height="100"></canvas></div>
+
+<table>
+<thead><tr><th>Fiche</th><th class="r">Avis</th><th class="r">Δ</th><th class="r">Position</th><th class="r">Δ</th></tr></thead>
+<tbody id="tbody"></tbody>
+</table>
+</div>
+
+<script>
+const FICHES = [{"name": "Héritage toiture Gembloux", "q": "toituriers gembloux héritage toiture", "kw": "couvreur gembloux", "target": "héritage"}, {"name": "Protoit Tubize", "q": "protoit tubize toituriers", "kw": "couvreur tubize", "target": "protoit"}, {"name": "Perfect Dak Huldenberg", "q": "perfect dak toiturier huldenberg", "kw": "dakwerker huldenberg", "target": "perfect dak"}, {"name": "OttenDak Huldenberg", "q": "ottendak toitures huldenberg", "kw": "dakwerker huldenberg", "target": "ottendak"}, {"name": "Fleurus Toiture & Charpentes", "q": "fleurus toiture charpentes", "kw": "couvreur fleurus", "target": "fleurus toiture"}, {"name": "Eppegem Dakwerken (1)", "q": "eppegem dakwerken toiture zemst", "kw": "dakwerker zemst", "target": "eppegem"}, {"name": "DakVista Kampenhout", "q": "dakvista toiture kampenhout", "kw": "dakwerker kampenhout", "target": "dakvista"}, {"name": "Dakwerker Tienen", "q": "dakwerker tienen toiture tirlemont", "kw": "dakwerker tienen", "target": "tienen"}, {"name": "Koningslo Dakservice", "q": "koningslo dakservice toitures", "kw": "dakwerker koningslo vilvoorde", "target": "koningslo"}, {"name": "L'Atelier du Toit Wavre", "q": "atelier du toit wavre", "kw": "couvreur wavre", "target": "atelier du toit"}, {"name": "Toiture d'Or Leuze", "q": "artisanale toiture d'or leuze pro couvreur", "kw": "couvreur leuze-en-hainaut", "target": "toiture d'or"}, {"name": "Mons Service Pro Toiture", "q": "mons service pro toiture", "kw": "couvreur mons", "target": "service pro"}, {"name": "Dakomax Aarschot", "q": "pro toiturier aarschot dakomax", "kw": "dakwerker aarschot", "target": "dakomax"}, {"name": "Zaventem Flash Dakdekker", "q": "zaventem toiturier flash dakdekker", "kw": "dakwerker zaventem", "target": "flash"}, {"name": "Toiturier Royal Bertem", "q": "toiturier royal dakwerker bertem", "kw": "dakwerker bertem", "target": "royal"}, {"name": "Maison Dakwerken Leuven", "q": "maison dakwerken leuven", "kw": "dakwerker leuven", "target": "maison dakwerken"}, {"name": "Père et Fils Ans", "q": "père et fils artisan toituriers ans", "kw": "couvreur ans", "target": "père et fils"}, {"name": "Dak Artisan Halle", "q": "votre toiturier halle dak artisan", "kw": "dakwerker halle", "target": "dak artisan"}, {"name": "Le Nouveau Dak Tervuren", "q": "nouveau dak tervuren toituriers", "kw": "dakwerker tervuren", "target": "nouveau dak"}, {"name": "Top Toiturier Rhode-St-Genèse", "q": "rhode saint genèse top toiturier", "kw": "couvreur rhode-saint-genèse", "target": "top toiturier"}, {"name": "Beau Dak Beersel", "q": "beau dak toiture beersel", "kw": "dakwerker beersel", "target": "beau dak"}, {"name": "Les Tuiles d'Or Gembloux", "q": "gembloux toituriers tuiles d'or", "kw": "couvreur gembloux", "target": "tuiles d'or"}, {"name": "Les Toitures de Ittre", "q": "toitures de ittre couvreur expert", "kw": "couvreur ittre", "target": "toitures de ittre"}, {"name": "Uccle Pro Couverture", "q": "uccle pro couverture zinguerie charpente", "kw": "couvreur uccle", "target": "uccle pro"}, {"name": "Perfect Couverture Tubize", "q": "perfect couverture tubize toiturier", "kw": "couvreur tubize", "target": "perfect couverture"}, {"name": "L'Artisan Référence Genappe", "q": "artisan référence toiturier genappe", "kw": "couvreur genappe", "target": "artisan référence"}, {"name": "Mon Toiturier Woluwe-St-Pierre", "q": "mon toiturier woluwe saint pierre", "kw": "couvreur woluwe-saint-pierre", "target": "mon toiturier"}, {"name": "Les Toitures de Lasne", "q": "toitures de lasne artisan toituriers", "kw": "couvreur lasne", "target": "toitures de lasne"}, {"name": "Toituriers Kraainem", "q": "toituriers kraainem élite de la toiture", "kw": "couvreur kraainem", "target": "kraainem"}, {"name": "Maison Rénovation Namur", "q": "maison rénovation toiture namur", "kw": "couvreur namur", "target": "maison rénovation"}, {"name": "Best Toiture Liège", "q": "best toiture liège couvreur artisan", "kw": "couvreur liège", "target": "best toiture"}, {"name": "Les Pro Toiture Soignies", "q": "pro toiture soignies couvreur", "kw": "couvreur soignies", "target": "pro toiture"}, {"name": "Eghezée Maître Artisan", "q": "eghezée maître artisan couvreur toiturier", "kw": "couvreur eghezée", "target": "maître artisan"}, {"name": "Élite Courcelles", "q": "élite courcelles pro toiturier", "kw": "couvreur courcelles", "target": "élite"}, {"name": "L'Échelle d'Or Grez-Doiceau", "q": "toiturier échelle d'or grez doiceau", "kw": "couvreur grez-doiceau", "target": "échelle d'or"}, {"name": "Roi de la Couverture Charleroi", "q": "pro toiture roi de la couverture charleroi", "kw": "couvreur charleroi", "target": "roi de la couverture"}, {"name": "Villers-la-Ville Expert", "q": "villers la ville expert toiturier", "kw": "couvreur villers-la-ville", "target": "expert toiturier"}, {"name": "Père Fils 2025 Nivelles", "q": "toiturier père fils 2025 nivelles", "kw": "couvreur nivelles", "target": "père fils 2025"}, {"name": "Expertise Rénovation Incourt", "q": "expertise rénovation toiturier incourt", "kw": "couvreur incourt", "target": "expertise rénovation"}, {"name": "Couvreur Brainois", "q": "couvreur toiturier brainois braine", "kw": "couvreur braine-le-comte", "target": "brainois"}, {"name": "Perwez Maison Rénovation", "q": "perwez maison rénovation toiturier", "kw": "couvreur perwez", "target": "perwez maison"}, {"name": "Ottignies Couverture & Ardoises", "q": "ottignies couverture ardoises", "kw": "couvreur ottignies", "target": "couverture & ardoises"}, {"name": "Rénov. Dak & Toit Kortenberg", "q": "rénovation dak toit toiturier kortenberg", "kw": "dakwerker kortenberg", "target": "dak & toit"}, {"name": "Eppegem Dakwerken (2)", "q": "dakwerken zemst eppegem", "kw": "dakwerker zemst", "target": "dakwerken"}, {"name": "Toiturier du Soleil Overijse", "q": "dakdekker toiturier du soleil overijse", "kw": "dakwerker overijse", "target": "soleil"}, {"name": "Loyens Dakwerken Tongres", "q": "tongres toiturier loyens dakwerken", "kw": "dakwerker tongeren", "target": "loyens"}];
+const PROXY_PLACES='/.netlify/functions/places';
+const PROXY_RANK='/.netlify/functions/rank';
+const K_IDS='rc_p2v2_ids',K_A='rc_p2v2_avis',K_R='rc_p2v2_rank';
+const $=id=>document.getElementById(id);
+function lget(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}}
+function lset(k,v){localStorage.setItem(k,JSON.stringify(v))}
+let ids=lget(K_IDS,{}),avisS=lget(K_A,{}),rankS=lget(K_R,{});
+const today=()=>new Date().toISOString().slice(0,10);
+const msg=t=>$('status').textContent=t;
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+
+async function resolveAll(){
+  $('btnResolve').disabled=true;let ok=0;
+  for(let i=0;i<FICHES.length;i++){
+    const f=FICHES[i];
+    if(ids[f.name]){ok++;continue}
+    msg(`Liaison ${i+1}/46 : ${f.name}…`);
+    try{
+      const j=await(await fetch(PROXY_PLACES+'?q='+encodeURIComponent(f.q+' belgique'))).json();
+      const c=j.candidates&&j.candidates[0];
+      if(c&&c.place_id){ids[f.name]=c.place_id;ok++}
+    }catch(e){}
+    await sleep(140);
+  }
+  lset(K_IDS,ids);$('btnResolve').disabled=false;
+  msg(`Liaison : ${ok}/46 ✓`);render();
+}
+
+async function refreshAvis(){
+  $('btnAvis').disabled=true;const snap={};let i=0;
+  for(const f of FICHES){
+    const pid=ids[f.name];if(!pid)continue;
+    msg(`Avis ${++i} : ${f.name}…`);
+    try{
+      const j=await(await fetch(PROXY_PLACES+'?place_id='+encodeURIComponent(pid))).json();
+      const n=j.result&&j.result.user_ratings_total;
+      if(typeof n==='number')snap[f.name]=n;
+    }catch(e){}
+    await sleep(110);
+  }
+  avisS[today()]=snap;lset(K_A,avisS);
+  $('btnAvis').disabled=false;msg(`Avis du ${today()} enregistrés ✓`);render();
+}
+
+async function refreshRanks(){
+  if(!confirm('46 recherches SerpApi seront consommées. Continuer ?'))return;
+  $('btnRank').disabled=true;const snap={};let i=0;
+  for(const f of FICHES){
+    msg(`Classement ${++i}/46 : ${f.kw}…`);
+    try{
+      const j=await(await fetch(PROXY_RANK+'?kw='+encodeURIComponent(f.kw)+'&target='+encodeURIComponent(f.target))).json();
+      snap[f.name]=j.position||null;
+    }catch(e){snap[f.name]=null}
+    await sleep(250);
+  }
+  rankS[today()]=snap;lset(K_R,rankS);
+  $('btnRank').disabled=false;msg(`Classements du ${today()} enregistrés ✓`);render();
+}
+
+function exportData(){
+  const b=new Blob([JSON.stringify({ids,avis:avisS,rank:rankS},null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='p2_tracker.json';a.click();
+}
+
+function lastTwo(s){const d=Object.keys(s).sort();return[d[d.length-1]?s[d[d.length-1]]:{},d[d.length-2]?s[d[d.length-2]]:{},d]}
+let chart;
+function render(){
+  const[aCur,aPrev,aDates]=lastTwo(avisS);
+  const[rCur,rPrev]=lastTwo(rankS);
+  const total=Object.values(aCur).reduce((s,n)=>s+n,0);
+  $('grand').textContent=Object.keys(aCur).length?total:'—';
+  const prevT=Object.values(aPrev).reduce((s,n)=>s+n,0);
+  $('sToday').textContent=Object.keys(aPrev).length?('+'+(total-prevT)):'—';
+  $('sSnaps').textContent=aDates.length;
+  $('sOk').textContent=Object.keys(ids).length+'/46';
+  const poss=Object.values(rCur).filter(p=>p);
+  $('sTop3').textContent=poss.length?poss.filter(p=>p<=3).length:'—';
+  $('sAvgPos').textContent=poss.length?('#'+(poss.reduce((s,p)=>s+p,0)/poss.length).toFixed(1)):'—';
+
+  $('tbody').innerHTML=FICHES.map(f=>{
+    const pid=ids[f.name],a=aCur[f.name],ap=aPrev[f.name],r=rCur[f.name],rp=rPrev[f.name];
+    const da=(a!=null&&ap!=null)?a-ap:null;
+    const dr=(r!=null&&rp!=null)?rp-r:null; // + = a monté
+    const daS=da==null?'':da>0?'+'+da:da===0?'=':da;
+    const drS=dr==null?'':dr>0?'▲'+dr:dr===0?'=':'▼'+(-dr);
+    const pc=r==null?'posx':r<=3?'pos1':r<=10?'pos2':'posx';
+    return '<tr'+(pid?'':' class="err"')+'><td>'+f.name+'<div class="kw">'+f.kw+'</div></td>'+
+      '<td class="r mono">'+(a!=null?a:'—')+'</td>'+
+      '<td class="r mono '+(da>0?'up':da<0?'dn':'zero')+'">'+daS+'</td>'+
+      '<td class="r mono '+pc+'">'+(r!=null?'#'+r:'—')+'</td>'+
+      '<td class="r mono '+(dr>0?'up':dr<0?'dn':'zero')+'">'+drS+'</td></tr>';
+  }).join('');
+
+  if(chart)chart.destroy();
+  chart=new Chart($('chart'),{type:'line',data:{labels:aDates,datasets:[{label:'Total avis',data:aDates.map(d=>Object.values(avisS[d]).reduce((s,n)=>s+n,0)),borderColor:'#c2552b',backgroundColor:'rgba(245,158,11,.12)',fill:true,tension:.3}]},options:{plugins:{legend:{display:false}}}});
+}
+render();
+</script>
+</body>
+</html>
