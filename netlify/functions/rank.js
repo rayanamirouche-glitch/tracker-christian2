@@ -1,12 +1,13 @@
-// Classement local Google Maps via SerpApi
+// Classement local Google Maps via SerpApi — v2 avec géolocalisation
 // Clé requise : variable d'environnement SERPAPI_KEY
-// Params : ?kw=couvreur+gembloux&target=NOM_FICHE (match partiel insensible à la casse)
+// Params : ?kw=couvreur+gembloux&target=NOM&ll=50.5610,4.6980
 exports.handler = async (event) => {
   const K = process.env.SERPAPI_KEY;
   if (!K) return { statusCode: 500, body: JSON.stringify({ error: "SERPAPI_KEY manquante" }) };
-  const { kw, target } = event.queryStringParameters || {};
+  const { kw, target, ll } = event.queryStringParameters || {};
   if (!kw || !target) return { statusCode: 400, body: JSON.stringify({ error: "params kw et target requis" }) };
-  const url = `https://serpapi.com/search.json?engine=google_maps&q=${encodeURIComponent(kw)}&hl=fr&gl=be&api_key=${K}`;
+  let url = `https://serpapi.com/search.json?engine=google_maps&q=${encodeURIComponent(kw)}&hl=fr&api_key=${K}`;
+  if (ll) url += `&ll=${encodeURIComponent('@' + ll + ',14z')}`;
   try {
     const r = await fetch(url);
     const j = await r.json();
@@ -21,7 +22,7 @@ exports.handler = async (event) => {
     return {
       statusCode: 200,
       headers: { "Access-Control-Allow-Origin": "*" },
-      body: JSON.stringify({ kw, target, position: pos, matched: found, total_results: results.length })
+      body: JSON.stringify({ kw, target, ll: ll || null, position: pos, matched: found, total_results: results.length })
     };
   } catch (e) {
     return { statusCode: 502, body: JSON.stringify({ error: String(e) }) };
