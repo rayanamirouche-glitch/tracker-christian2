@@ -168,7 +168,7 @@ function render(){
     const daS=da==null?'':da>0?'+'+da:da===0?'=':da;
     const drS=dr==null?'':dr>0?'▲'+dr:dr===0?'=':'▼'+(-dr);
     const pc=r==null?'posx':r<=3?'pos1':r<=10?'pos2':'posx';
-    return '<tr'+(pid?'':' class="err"')+'><td>'+f.name+'<div class="kw">'+f.kw+'</div></td>'+
+    return '<tr'+(pid?'':' class="err"')+'><td>'+(pid?'<a href="https://www.google.com/maps/place/?q=place_id:'+pid+'" target="_blank" style="color:inherit;text-decoration:none">'+f.name+' ↗</a>':f.name)+'<div class="kw">'+f.kw+'</div></td>'+
       '<td class="r mono">'+(a!=null?a:'—')+'</td>'+
       '<td class="r mono '+(da>0?'up':da<0?'dn':'zero')+'">'+daS+'</td>'+
       '<td class="r mono '+pc+'">'+(r!=null?'#'+r:'—')+'</td>'+
