@@ -44,6 +44,13 @@ async function snapAvis() {
   return hist[today()];
 }
 
+const COOLDOWN_H = 48;
+async function rankCooldown() {
+  const meta = await getJSON('rankMeta', {});
+  if (!meta.last) return 0;
+  const left = COOLDOWN_H * 3600000 - (Date.now() - new Date(meta.last).getTime());
+  return left > 0 ? left : 0;
+}
 async function snapRank() {
   const K = process.env.SERPAPI_KEY;
   const norm = s => (s || '').toLowerCase().replace(/[\u2018\u2019\u02BC\u0060\u00B4]/g, "'").normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -63,6 +70,7 @@ async function snapRank() {
   for (const k in snap) { if (snap[k] != null || cur[k] == null) cur[k] = snap[k] }
   hist[today()] = cur;
   await setJSON('rank', hist);
+  await setJSON('rankMeta', { last: new Date().toISOString() });
   return cur;
 }
 
@@ -70,4 +78,4 @@ async function allData() {
   return { ids: await getJSON('ids', {}), avis: await getJSON('avis', {}), rank: await getJSON('rank', {}) };
 }
 
-module.exports = { snapAvis, snapRank, allData };
+module.exports = { snapAvis, snapRank, allData, rankCooldown };

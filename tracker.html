@@ -57,7 +57,7 @@ tr.alert td{background:#fef2f2;border-color:#f5c6c6}
 
 <div class="panel">
   <h3>Suivi automatique</h3>
-  <p>Relevé des avis chaque nuit (~5h) · classements automatiques lundi &amp; jeudi. Le bouton ci-dessous force un relevé immédiat si besoin. Historique commun à tous les appareils.</p>
+  <p>Relevé des avis chaque nuit (~5h) · classements automatiques lundi &amp; jeudi. Actualiser AVIS : à volonté · Actualiser CLASSEMENTS : 1 fois max toutes les 48h. Historique commun à tous les appareils.</p>
   <div class="btnrow">
     <button class="btn" id="btnAvis" onclick="runAvis()">Actualiser AVIS</button>
     <button class="btn" id="btnRank" onclick="runRank()">Actualiser CLASSEMENTS</button>
@@ -87,7 +87,6 @@ const FICHES=[{"name": "Héritage toiture Gembloux", "q": "toituriers gembloux h
 const $=id=>document.getElementById(id);
 let DATA={ids:{},avis:{},rank:{}};
 const admin=new URLSearchParams(location.search).has('admin');
-if(!admin)$('btnRank').style.display='none';
 const msg=t=>$('status').textContent=t;
 
 async function load(){
@@ -100,9 +99,13 @@ async function runAvis(){
   $('btnAvis').disabled=false;
 }
 async function runRank(){
-  if(!confirm('46 recherches SerpApi seront consommées. Continuer ?'))return;
+  if(!confirm('Relever les classements maintenant ? (possible 1 fois toutes les 48h)'))return;
   $('btnRank').disabled=true;msg('Relevé des classements en cours… (~10 s)');
-  try{await fetch('/.netlify/functions/run?type=rank');await load();msg('Classements relevés ✓ (les positions manquantes se complètent au prochain relevé)')}catch(e){msg('Relevé lancé — les résultats arriveront au prochain rafraîchissement');setTimeout(load,75000)}
+  try{
+    const r=await fetch('/.netlify/functions/run?type=rank'+(admin?'&force=1':''));
+    if(r.status===429){const j=await r.json();msg('Classements déjà relevés récemment — prochain relevé possible dans ~'+j.cooldown+'h (relevé auto lundi & jeudi)')}
+    else{await load();msg('Classements relevés ✓ (les positions manquantes se complètent au prochain relevé)')}
+  }catch(e){msg('Relevé lancé — les résultats arriveront au prochain rafraîchissement');setTimeout(load,75000)}
   $('btnRank').disabled=false;
 }
 function exportData(){
