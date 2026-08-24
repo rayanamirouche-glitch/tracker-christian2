@@ -104,7 +104,7 @@ async function runRank(){
   try{
     const r=await fetch('/.netlify/functions/run?type=rank'+(admin?'&force=1':''));
     if(r.status===429){const j=await r.json();msg('Classements déjà relevés récemment — prochain relevé possible dans ~'+j.cooldown+'h (relevé auto lundi & jeudi)')}
-    else{await load();msg('Classements relevés ✓ (les positions manquantes se complètent au prochain relevé)')}
+    else{msg('Relevé des classements lancé — les positions arrivent par vagues, ~1 min…');setTimeout(load,25000);setTimeout(async()=>{await load();msg('Classements relevés ✓')},70000)}
   }catch(e){msg('Relevé lancé — les résultats arriveront au prochain rafraîchissement');setTimeout(load,75000)}
   $('btnRank').disabled=false;
 }

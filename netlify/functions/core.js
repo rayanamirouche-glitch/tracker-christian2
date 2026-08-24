@@ -51,14 +51,17 @@ async function rankCooldown() {
   const left = COOLDOWN_H * 3600000 - (Date.now() - new Date(meta.last).getTime());
   return left > 0 ? left : 0;
 }
-async function snapRank() {
+async function snapRank(start = 0) {
+  const B = 10;
   const K = process.env.SERPAPI_KEY;
   const norm = s => (s || '').toLowerCase().replace(/[\u2018\u2019\u02BC\u0060\u00B4]/g, "'").normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  if (start === 0) await setJSON('rankMeta', { last: new Date().toISOString() });
+  const slice = FICHES.slice(start, start + B);
   const snap = {};
-  await Promise.all(FICHES.map(async f => {
+  await Promise.all(slice.map(async f => {
     try {
       const u = 'https://serpapi.com/search.json?engine=google_maps&q=' + encodeURIComponent(f.kw) + '&ll=' + encodeURIComponent('@' + f.ll + ',14z') + '&hl=fr&api_key=' + K;
-      const j = await to(fetch(u).then(r => r.json()), 8500);
+      const j = await to(fetch(u).then(r => r.json()), 8000);
       const rs = (j && j.local_results) || [];
       const t = norm(f.target); let pos = null;
       rs.forEach((r, i) => { if (pos === null && r.title && norm(r.title).includes(t)) pos = i + 1 });
@@ -70,7 +73,10 @@ async function snapRank() {
   for (const k in snap) { if (snap[k] != null || cur[k] == null) cur[k] = snap[k] }
   hist[today()] = cur;
   await setJSON('rank', hist);
-  await setJSON('rankMeta', { last: new Date().toISOString() });
+  if (start + B < FICHES.length) {
+    const next = (process.env.URL || '') + '/.netlify/functions/run?type=rank&force=1&i=' + (start + B);
+    await Promise.race([fetch(next).catch(() => {}), new Promise(r => setTimeout(r, 2500))]);
+  }
   return cur;
 }
 
