@@ -9,17 +9,33 @@ const to = (p, ms) => Promise.race([p, new Promise(r => setTimeout(() => r(null)
 async function getJSON(k, d) { try { const v = await store().get(k, { type: 'json' }); return v ?? d } catch (e) { return d } }
 async function setJSON(k, v) { await store().setJSON(k, v) }
 
+async function rememberBase(base) {
+  if (!base) return;
+  try { const m = await getJSON('siteBase', {}); if (m.base !== base) await setJSON('siteBase', { base }); } catch (e) {}
+}
+async function baseUrl() {
+  const m = await getJSON('siteBase', {});
+  return m.base || process.env.URL || process.env.DEPLOY_PRIME_URL || '';
+}
+
+const normName = s => (s || '').toLowerCase().replace(/[\u2018\u2019\u02BC\u0060\u00B4]/g, "'").normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
 async function resolveIds() {
   const K = process.env.PLACES_API_KEY;
   const ids = await getJSON('ids', {});
   await Promise.all(FICHES.map(async f => {
     if (ids[f.name]) return;
-    try {
-      const u = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=' + encodeURIComponent(f.q + ' ' + REGION) + '&inputtype=textquery&fields=place_id&key=' + K;
-      const j = await to(fetch(u).then(r => r.json()), 6000);
-      const c = j && j.candidates && j.candidates[0];
-      if (c && c.place_id) ids[f.name] = c.place_id;
-    } catch (e) {}
+    const t = normName(f.target);
+    const queries = [f.q + ' ' + REGION, f.q, f.name];
+    for (const q of queries) {
+      try {
+        const u = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=' + encodeURIComponent(q) + '&location=' + f.ll + '&radius=15000&key=' + K;
+        const j = await to(fetch(u).then(r => r.json()), 6500);
+        const results = (j && j.results) || [];
+        const hit = results.find(r => r.name && normName(r.name).includes(t));
+        if (hit && hit.place_id) { ids[f.name] = hit.place_id; break; }
+      } catch (e) {}
+    }
   }));
   await setJSON('ids', ids);
   return ids;
@@ -35,7 +51,7 @@ async function snapAvis() {
       const u = 'https://maps.googleapis.com/maps/api/place/details/json?place_id=' + pid + '&fields=user_ratings_total,rating&key=' + K;
       const j = await to(fetch(u).then(r => r.json()), 6000);
       const res = j && j.result;
-      if (res && typeof res.user_ratings_total === 'number') snap[f.name] = { n: res.user_ratings_total, r: res.rating || null };
+      if (res) snap[f.name] = { n: (typeof res.user_ratings_total === 'number' ? res.user_ratings_total : 0), r: res.rating || null };
     } catch (e) {}
   }));
   const hist = await getJSON('avis', {});
@@ -68,20 +84,39 @@ async function snapRank(start = 0) {
       snap[f.name] = pos;
     } catch (e) { snap[f.name] = null }
   }));
-  const hist = await getJSON('rank', {});
-  const cur = hist[today()] || {};
-  for (const k in snap) { if (snap[k] != null || cur[k] == null) cur[k] = snap[k] }
-  hist[today()] = cur;
-  await setJSON('rank', hist);
+  await setJSON('rankbatch/' + today() + '/' + start, snap);
   if (start + B < FICHES.length) {
-    const next = (process.env.URL || '') + '/.netlify/functions/run?type=rank&force=1&i=' + (start + B);
-    await Promise.race([fetch(next).catch(() => {}), new Promise(r => setTimeout(r, 2500))]);
+    const base = await baseUrl();
+    if (base) {
+      const next = base + '/.netlify/functions/run?type=rank&force=1&i=' + (start + B);
+      await Promise.race([fetch(next).catch(() => {}), new Promise(r => setTimeout(r, 3000))]);
+    }
   }
-  return cur;
+  return snap;
+}
+
+async function rankHistory() {
+  const hist = await getJSON('rank', {});   // ancien format conservé
+  try {
+    const { blobs } = await store().list({ prefix: 'rankbatch/' });
+    for (const b of (blobs || [])) {
+      const parts = b.key.split('/');       // rankbatch/DATE/START
+      const date = parts[1];
+      const snap = await getJSON(b.key, {});
+      hist[date] = hist[date] || {};
+      for (const k in snap) { if (snap[k] != null || hist[date][k] == null) hist[date][k] = snap[k] }
+    }
+  } catch (e) {}
+  return hist;
+}
+
+async function relink() {
+  await setJSON('ids', {});
+  return resolveIds();
 }
 
 async function allData() {
-  return { ids: await getJSON('ids', {}), avis: await getJSON('avis', {}), rank: await getJSON('rank', {}) };
+  return { ids: await getJSON('ids', {}), avis: await getJSON('avis', {}), rank: await rankHistory() };
 }
 
-module.exports = { snapAvis, snapRank, allData, rankCooldown };
+module.exports = { snapAvis, snapRank, allData, rankCooldown, rememberBase, relink };

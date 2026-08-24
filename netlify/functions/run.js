@@ -2,9 +2,13 @@ const { connectLambda } = require('@netlify/blobs');
 const core = require('./core');
 exports.handler = async (event) => {
   connectLambda(event);
+  try { await core.rememberBase('https://' + (event.headers && (event.headers.host || event.headers.Host))); } catch (e) {}
   const q = event.queryStringParameters || {};
   try {
     if (q.type === 'avis') {
+      await core.snapAvis();
+    } else if (q.type === 'relink') {
+      await core.relink();
       await core.snapAvis();
     } else if (q.type === 'rank') {
       const start = parseInt(q.i || '0', 10) || 0;
