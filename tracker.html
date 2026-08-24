@@ -38,6 +38,9 @@ td{background:#fff;padding:9px 10px;font-size:.78rem;border-top:1px solid var(--
 td:first-child{border-left:1px solid var(--line);border-radius:12px 0 0 12px;font-weight:700}
 td:last-child{border-right:1px solid var(--line);border-radius:0 12px 12px 0}
 tr.err td{background:#fef7f7;border-color:#f5c6c6}
+tr.alert td{background:#fef2f2;border-color:#f5c6c6}
+.warn{font-family:'DM Mono',monospace;font-size:.55rem;color:var(--bad);font-weight:700}
+.star{color:var(--gold);font-size:.68rem;font-weight:700}
 .mono{font-family:'DM Mono',monospace;font-weight:700}
 .up{color:var(--ok)}.dn{color:var(--bad)}.zero{color:var(--muted)}
 .kw{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--muted)}
@@ -47,18 +50,17 @@ tr.err td{background:#fef7f7;border-color:#f5c6c6}
 <body>
 <div class="header">
   <div class="logo">R.</div>
-  <div class="h-t"><div class="h-name">Tracker P2 Belgique</div><div class="h-sub">avis Google + classement local géolocalisé · 46 fiches</div></div>
+  <div class="h-t"><div class="h-name">Tracker P2 Belgique</div><div class="h-sub">avis Google + classement local géolocalisé · 46 fiches · maj auto nocturne</div><div class="h-sub" id="last"></div></div>
   <div><div class="total-num" id="grand">—</div><div class="total-lbl">AVIS TOTAL</div></div>
 </div>
 <div class="wrap">
 
 <div class="panel">
-  <h3>Actions</h3>
-  <p>Étape 1 une seule fois. Ensuite : Avis quand tu veux (gratuit ou presque) · Classements 1-2×/semaine (consomme ton quota SerpApi : 1 recherche par fiche).</p>
+  <h3>Suivi automatique</h3>
+  <p>Relevé des avis chaque nuit (~5h) · classements automatiques lundi &amp; jeudi. Le bouton ci-dessous force un relevé immédiat si besoin. Historique commun à tous les appareils.</p>
   <div class="btnrow">
-    <button class="btn sec" id="btnResolve" onclick="resolveAll()">1 · Lier les fiches</button>
-    <button class="btn" id="btnAvis" onclick="refreshAvis()">Actualiser AVIS</button>
-    <button class="btn" id="btnRank" onclick="refreshRanks()">Actualiser CLASSEMENTS</button>
+    <button class="btn" id="btnAvis" onclick="runAvis()">Actualiser AVIS</button>
+    <button class="btn" id="btnRank" onclick="runRank()">Actualiser CLASSEMENTS</button>
     <button class="btn sec" onclick="exportData()">Export</button>
   </div>
   <div id="status"></div>
@@ -81,104 +83,72 @@ tr.err td{background:#fef7f7;border-color:#f5c6c6}
 </div>
 
 <script>
-const FICHES = [{"name": "Héritage toiture Gembloux", "q": "toituriers gembloux héritage toiture", "kw": "couvreur gembloux", "target": "héritage", "ll": "50.5610,4.6980"}, {"name": "Protoit Tubize", "q": "protoit tubize toituriers", "kw": "couvreur tubize", "target": "protoit", "ll": "50.6900,4.2050"}, {"name": "Perfect Dak Huldenberg", "q": "perfect dak toiturier huldenberg", "kw": "dakwerker huldenberg", "target": "perfect dak", "ll": "50.7890,4.5850"}, {"name": "OttenDak Huldenberg", "q": "ottendak toitures huldenberg", "kw": "dakwerker huldenberg", "target": "ottendak", "ll": "50.7890,4.5850"}, {"name": "Fleurus Toiture & Charpentes", "q": "fleurus toiture charpentes", "kw": "couvreur fleurus", "target": "fleurus toiture", "ll": "50.4830,4.5500"}, {"name": "Eppegem Dakwerken (1)", "q": "eppegem dakwerken toiture zemst", "kw": "dakwerker zemst", "target": "eppegem", "ll": "50.9560,4.4640"}, {"name": "DakVista Kampenhout", "q": "dakvista toiture kampenhout", "kw": "dakwerker kampenhout", "target": "dakvista", "ll": "50.9390,4.5480"}, {"name": "Dakwerker Tienen", "q": "dakwerker tienen toiture tirlemont", "kw": "dakwerker tienen", "target": "tienen", "ll": "50.8070,4.9370"}, {"name": "Koningslo Dakservice", "q": "koningslo dakservice toitures", "kw": "dakwerker vilvoorde", "target": "koningslo", "ll": "50.9180,4.4090"}, {"name": "L'Atelier du Toit Wavre", "q": "atelier du toit wavre", "kw": "couvreur wavre", "target": "atelier du toit", "ll": "50.7170,4.6010"}, {"name": "Toiture d'Or Leuze", "q": "artisanale toiture d'or leuze pro couvreur", "kw": "couvreur leuze-en-hainaut", "target": "toiture d'or", "ll": "50.6000,3.6170"}, {"name": "Mons Service Pro Toiture", "q": "mons service pro toiture", "kw": "couvreur mons", "target": "service pro", "ll": "50.4540,3.9520"}, {"name": "Dakomax Aarschot", "q": "pro toiturier aarschot dakomax", "kw": "dakwerker aarschot", "target": "dakomax", "ll": "50.9840,4.8380"}, {"name": "Zaventem Flash Dakdekker", "q": "zaventem toiturier flash dakdekker", "kw": "dakwerker zaventem", "target": "flash", "ll": "50.8850,4.4720"}, {"name": "Toiturier Royal Bertem", "q": "toiturier royal dakwerker bertem", "kw": "dakwerker bertem", "target": "royal", "ll": "50.8620,4.6280"}, {"name": "Maison Dakwerken Leuven", "q": "maison dakwerken leuven", "kw": "dakwerker leuven", "target": "maison dakwerken", "ll": "50.8790,4.7010"}, {"name": "Père et Fils Ans", "q": "père et fils artisan toituriers ans", "kw": "couvreur ans", "target": "père et fils", "ll": "50.6620,5.5200"}, {"name": "Dak Artisan Halle", "q": "votre toiturier halle dak artisan", "kw": "dakwerker halle", "target": "dak artisan", "ll": "50.7340,4.2370"}, {"name": "Le Nouveau Dak Tervuren", "q": "nouveau dak tervuren toituriers", "kw": "dakwerker tervuren", "target": "nouveau dak", "ll": "50.8230,4.5160"}, {"name": "Top Toiturier Rhode-St-Genèse", "q": "rhode saint genèse top toiturier", "kw": "couvreur rhode-saint-genèse", "target": "top toiturier", "ll": "50.7480,4.3560"}, {"name": "Beau Dak Beersel", "q": "beau dak toiture beersel", "kw": "dakwerker beersel", "target": "beau dak", "ll": "50.7660,4.3000"}, {"name": "Les Tuiles d'Or Gembloux", "q": "gembloux toituriers tuiles d'or", "kw": "couvreur gembloux", "target": "tuiles d'or", "ll": "50.5610,4.6980"}, {"name": "Les Toitures de Ittre", "q": "toitures de ittre couvreur expert", "kw": "couvreur ittre", "target": "toitures de ittre", "ll": "50.6440,4.2640"}, {"name": "Uccle Pro Couverture", "q": "uccle pro couverture zinguerie charpente", "kw": "couvreur uccle", "target": "uccle pro", "ll": "50.8020,4.3370"}, {"name": "Perfect Couverture Tubize", "q": "perfect couverture tubize toiturier", "kw": "couvreur tubize", "target": "perfect couverture", "ll": "50.6900,4.2050"}, {"name": "L'Artisan Référence Genappe", "q": "artisan référence toiturier genappe", "kw": "couvreur genappe", "target": "artisan référence", "ll": "50.6110,4.4510"}, {"name": "Mon Toiturier Woluwe-St-Pierre", "q": "mon toiturier woluwe saint pierre", "kw": "couvreur woluwe-saint-pierre", "target": "mon toiturier", "ll": "50.8290,4.4300"}, {"name": "Les Toitures de Lasne", "q": "toitures de lasne artisan toituriers", "kw": "couvreur lasne", "target": "toitures de lasne", "ll": "50.6930,4.3970"}, {"name": "Toituriers Kraainem", "q": "toituriers kraainem élite de la toiture", "kw": "couvreur kraainem", "target": "kraainem", "ll": "50.8600,4.4700"}, {"name": "Maison Rénovation Namur", "q": "maison rénovation toiture namur", "kw": "couvreur namur", "target": "maison rénovation", "ll": "50.4670,4.8720"}, {"name": "Best Toiture Liège", "q": "best toiture liège couvreur artisan", "kw": "couvreur liège", "target": "best toiture", "ll": "50.6330,5.5670"}, {"name": "Les Pro Toiture Soignies", "q": "pro toiture soignies couvreur", "kw": "couvreur soignies", "target": "pro toiture", "ll": "50.5790,4.0710"}, {"name": "Eghezée Maître Artisan", "q": "eghezée maître artisan couvreur toiturier", "kw": "couvreur eghezée", "target": "maître artisan", "ll": "50.5900,4.9110"}, {"name": "Élite Courcelles", "q": "élite courcelles pro toiturier", "kw": "couvreur courcelles", "target": "élite", "ll": "50.4640,4.3730"}, {"name": "L'Échelle d'Or Grez-Doiceau", "q": "toiturier échelle d'or grez doiceau", "kw": "couvreur grez-doiceau", "target": "échelle d'or", "ll": "50.7370,4.6980"}, {"name": "Roi de la Couverture Charleroi", "q": "pro toiture roi de la couverture charleroi", "kw": "couvreur charleroi", "target": "roi de la couverture", "ll": "50.4110,4.4440"}, {"name": "Villers-la-Ville Expert", "q": "villers la ville expert toiturier", "kw": "couvreur villers-la-ville", "target": "expert toiturier", "ll": "50.5800,4.5290"}, {"name": "Père Fils 2025 Nivelles", "q": "toiturier père fils 2025 nivelles", "kw": "couvreur nivelles", "target": "père fils 2025", "ll": "50.5980,4.3280"}, {"name": "Expertise Rénovation Incourt", "q": "expertise rénovation toiturier incourt", "kw": "couvreur incourt", "target": "expertise rénovation", "ll": "50.6910,4.7990"}, {"name": "Couvreur Brainois", "q": "couvreur toiturier brainois braine", "kw": "couvreur braine-le-comte", "target": "brainois", "ll": "50.6090,4.1440"}, {"name": "Perwez Maison Rénovation", "q": "perwez maison rénovation toiturier", "kw": "couvreur perwez", "target": "perwez maison", "ll": "50.6280,4.8100"}, {"name": "Ottignies Couverture & Ardoises", "q": "ottignies couverture ardoises", "kw": "couvreur ottignies", "target": "couverture & ardoises", "ll": "50.6650,4.5660"}, {"name": "Rénov. Dak & Toit Kortenberg", "q": "rénovation dak toit toiturier kortenberg", "kw": "dakwerker kortenberg", "target": "dak & toit", "ll": "50.8890,4.5430"}, {"name": "Eppegem Dakwerken (2)", "q": "dakwerken zemst eppegem", "kw": "dakwerker zemst", "target": "dakwerken", "ll": "50.9560,4.4640"}, {"name": "Toiturier du Soleil Overijse", "q": "dakdekker toiturier du soleil overijse", "kw": "dakwerker overijse", "target": "soleil", "ll": "50.7740,4.5350"}, {"name": "Loyens Dakwerken Tongres", "q": "tongres toiturier loyens dakwerken", "kw": "dakwerker tongeren", "target": "loyens", "ll": "50.7800,5.4640"}];
-const PROXY_PLACES='/.netlify/functions/places';
-const PROXY_RANK='/.netlify/functions/rank';
-const K_IDS='rc_p2v2_ids',K_A='rc_p2v2_avis',K_R='rc_p2v2_rank';
+const FICHES=[{"name": "Héritage toiture Gembloux", "q": "toituriers gembloux héritage toiture", "kw": "couvreur gembloux", "target": "héritage", "ll": "50.5610,4.6980"}, {"name": "Protoit Tubize", "q": "protoit tubize toituriers", "kw": "couvreur tubize", "target": "protoit", "ll": "50.6900,4.2050"}, {"name": "Perfect Dak Huldenberg", "q": "perfect dak toiturier huldenberg", "kw": "dakwerker huldenberg", "target": "perfect dak", "ll": "50.7890,4.5850"}, {"name": "OttenDak Huldenberg", "q": "ottendak toitures huldenberg", "kw": "dakwerker huldenberg", "target": "ottendak", "ll": "50.7890,4.5850"}, {"name": "Fleurus Toiture & Charpentes", "q": "fleurus toiture charpentes", "kw": "couvreur fleurus", "target": "fleurus toiture", "ll": "50.4830,4.5500"}, {"name": "Eppegem Dakwerken (1)", "q": "eppegem dakwerken toiture zemst", "kw": "dakwerker zemst", "target": "eppegem", "ll": "50.9560,4.4640"}, {"name": "DakVista Kampenhout", "q": "dakvista toiture kampenhout", "kw": "dakwerker kampenhout", "target": "dakvista", "ll": "50.9390,4.5480"}, {"name": "Dakwerker Tienen", "q": "dakwerker tienen toiture tirlemont", "kw": "dakwerker tienen", "target": "tienen", "ll": "50.8070,4.9370"}, {"name": "Koningslo Dakservice", "q": "koningslo dakservice toitures", "kw": "dakwerker vilvoorde", "target": "koningslo", "ll": "50.9180,4.4090"}, {"name": "L'Atelier du Toit Wavre", "q": "atelier du toit wavre", "kw": "couvreur wavre", "target": "atelier du toit", "ll": "50.7170,4.6010"}, {"name": "Toiture d'Or Leuze", "q": "artisanale toiture d'or leuze pro couvreur", "kw": "couvreur leuze-en-hainaut", "target": "toiture d'or", "ll": "50.6000,3.6170"}, {"name": "Mons Service Pro Toiture", "q": "mons service pro toiture", "kw": "couvreur mons", "target": "service pro", "ll": "50.4540,3.9520"}, {"name": "Dakomax Aarschot", "q": "pro toiturier aarschot dakomax", "kw": "dakwerker aarschot", "target": "dakomax", "ll": "50.9840,4.8380"}, {"name": "Zaventem Flash Dakdekker", "q": "zaventem toiturier flash dakdekker", "kw": "dakwerker zaventem", "target": "flash", "ll": "50.8850,4.4720"}, {"name": "Toiturier Royal Bertem", "q": "toiturier royal dakwerker bertem", "kw": "dakwerker bertem", "target": "royal", "ll": "50.8620,4.6280"}, {"name": "Maison Dakwerken Leuven", "q": "maison dakwerken leuven", "kw": "dakwerker leuven", "target": "maison dakwerken", "ll": "50.8790,4.7010"}, {"name": "Père et Fils Ans", "q": "père et fils artisan toituriers ans", "kw": "couvreur ans", "target": "père et fils", "ll": "50.6620,5.5200"}, {"name": "Dak Artisan Halle", "q": "votre toiturier halle dak artisan", "kw": "dakwerker halle", "target": "dak artisan", "ll": "50.7340,4.2370"}, {"name": "Le Nouveau Dak Tervuren", "q": "nouveau dak tervuren toituriers", "kw": "dakwerker tervuren", "target": "nouveau dak", "ll": "50.8230,4.5160"}, {"name": "Top Toiturier Rhode-St-Genèse", "q": "rhode saint genèse top toiturier", "kw": "couvreur rhode-saint-genèse", "target": "top toiturier", "ll": "50.7480,4.3560"}, {"name": "Beau Dak Beersel", "q": "beau dak toiture beersel", "kw": "dakwerker beersel", "target": "beau dak", "ll": "50.7660,4.3000"}, {"name": "Les Tuiles d'Or Gembloux", "q": "gembloux toituriers tuiles d'or", "kw": "couvreur gembloux", "target": "tuiles d'or", "ll": "50.5610,4.6980"}, {"name": "Les Toitures de Ittre", "q": "toitures de ittre couvreur expert", "kw": "couvreur ittre", "target": "toitures de ittre", "ll": "50.6440,4.2640"}, {"name": "Uccle Pro Couverture", "q": "uccle pro couverture zinguerie charpente", "kw": "couvreur uccle", "target": "uccle pro", "ll": "50.8020,4.3370"}, {"name": "Perfect Couverture Tubize", "q": "perfect couverture tubize toiturier", "kw": "couvreur tubize", "target": "perfect couverture", "ll": "50.6900,4.2050"}, {"name": "L'Artisan Référence Genappe", "q": "artisan référence toiturier genappe", "kw": "couvreur genappe", "target": "artisan référence", "ll": "50.6110,4.4510"}, {"name": "Mon Toiturier Woluwe-St-Pierre", "q": "mon toiturier woluwe saint pierre", "kw": "couvreur woluwe-saint-pierre", "target": "mon toiturier", "ll": "50.8290,4.4300"}, {"name": "Les Toitures de Lasne", "q": "toitures de lasne artisan toituriers", "kw": "couvreur lasne", "target": "toitures de lasne", "ll": "50.6930,4.3970"}, {"name": "Toituriers Kraainem", "q": "toituriers kraainem élite de la toiture", "kw": "couvreur kraainem", "target": "kraainem", "ll": "50.8600,4.4700"}, {"name": "Maison Rénovation Namur", "q": "maison rénovation toiture namur", "kw": "couvreur namur", "target": "maison rénovation", "ll": "50.4670,4.8720"}, {"name": "Best Toiture Liège", "q": "best toiture liège couvreur artisan", "kw": "couvreur liège", "target": "best toiture", "ll": "50.6330,5.5670"}, {"name": "Les Pro Toiture Soignies", "q": "pro toiture soignies couvreur", "kw": "couvreur soignies", "target": "pro toiture", "ll": "50.5790,4.0710"}, {"name": "Eghezée Maître Artisan", "q": "eghezée maître artisan couvreur toiturier", "kw": "couvreur eghezée", "target": "maître artisan", "ll": "50.5900,4.9110"}, {"name": "Élite Courcelles", "q": "élite courcelles pro toiturier", "kw": "couvreur courcelles", "target": "élite", "ll": "50.4640,4.3730"}, {"name": "L'Échelle d'Or Grez-Doiceau", "q": "toiturier échelle d'or grez doiceau", "kw": "couvreur grez-doiceau", "target": "échelle d'or", "ll": "50.7370,4.6980"}, {"name": "Roi de la Couverture Charleroi", "q": "pro toiture roi de la couverture charleroi", "kw": "couvreur charleroi", "target": "roi de la couverture", "ll": "50.4110,4.4440"}, {"name": "Villers-la-Ville Expert", "q": "villers la ville expert toiturier", "kw": "couvreur villers-la-ville", "target": "expert toiturier", "ll": "50.5800,4.5290"}, {"name": "Père Fils 2025 Nivelles", "q": "toiturier père fils 2025 nivelles", "kw": "couvreur nivelles", "target": "père fils 2025", "ll": "50.5980,4.3280"}, {"name": "Expertise Rénovation Incourt", "q": "expertise rénovation toiturier incourt", "kw": "couvreur incourt", "target": "expertise rénovation", "ll": "50.6910,4.7990"}, {"name": "Couvreur Brainois", "q": "couvreur toiturier brainois braine l'alleud", "kw": "couvreur braine-l'alleud", "target": "brainois", "ll": "50.6830,4.3680"}, {"name": "Perwez Maison Rénovation", "q": "perwez maison rénovation toiturier", "kw": "couvreur perwez", "target": "perwez maison", "ll": "50.6280,4.8100"}, {"name": "Ottignies Couverture & Ardoises", "q": "ottignies couverture ardoises", "kw": "couvreur ottignies", "target": "couverture & ardoises", "ll": "50.6650,4.5660"}, {"name": "Rénov. Dak & Toit Kortenberg", "q": "rénovation dak toit toiturier kortenberg", "kw": "dakwerker kortenberg", "target": "dak & toit", "ll": "50.8890,4.5430"}, {"name": "Eppegem Dakwerken (2)", "q": "dakwerken zemst eppegem", "kw": "dakwerker zemst", "target": "dakwerken", "ll": "50.9560,4.4640"}, {"name": "Toiturier du Soleil Overijse", "q": "dakdekker toiturier du soleil overijse", "kw": "dakwerker overijse", "target": "soleil", "ll": "50.7740,4.5350"}, {"name": "Loyens Dakwerken Tongres", "q": "tongres toiturier loyens dakwerken", "kw": "dakwerker tongeren", "target": "loyens", "ll": "50.7800,5.4640"}];
 const $=id=>document.getElementById(id);
-function lget(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}}
-function lset(k,v){localStorage.setItem(k,JSON.stringify(v))}
-let ids=lget(K_IDS,{}),avisS=lget(K_A,{}),rankS=lget(K_R,{});
-const today=()=>new Date().toISOString().slice(0,10);
+let DATA={ids:{},avis:{},rank:{}};
+const admin=new URLSearchParams(location.search).has('admin');
+if(!admin)$('btnRank').style.display='none';
 const msg=t=>$('status').textContent=t;
-const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 
-async function resolveAll(){
-  $('btnResolve').disabled=true;let ok=0;
-  for(let i=0;i<FICHES.length;i++){
-    const f=FICHES[i];
-    if(ids[f.name]){ok++;continue}
-    msg(`Liaison ${i+1}/46 : ${f.name}…`);
-    try{
-      const j=await(await fetch(PROXY_PLACES+'?q='+encodeURIComponent(f.q+' belgique'))).json();
-      const c=j.candidates&&j.candidates[0];
-      if(c&&c.place_id){ids[f.name]=c.place_id;ok++}
-    }catch(e){}
-    await sleep(140);
-  }
-  lset(K_IDS,ids);$('btnResolve').disabled=false;
-  msg(`Liaison : ${ok}/46 ✓`);render();
+async function load(){
+  try{DATA=await(await fetch('/.netlify/functions/data')).json()}catch(e){msg('Erreur de chargement — recharge la page')}
+  render();
 }
-
-async function refreshAvis(){
-  $('btnAvis').disabled=true;const snap={};let i=0;
-  for(const f of FICHES){
-    const pid=ids[f.name];if(!pid)continue;
-    msg(`Avis ${++i} : ${f.name}…`);
-    try{
-      const j=await(await fetch(PROXY_PLACES+'?place_id='+encodeURIComponent(pid))).json();
-      const n=j.result&&j.result.user_ratings_total;
-      if(typeof n==='number')snap[f.name]=n;
-    }catch(e){}
-    await sleep(110);
-  }
-  avisS[today()]=snap;lset(K_A,avisS);
-  $('btnAvis').disabled=false;msg(`Avis du ${today()} enregistrés ✓`);render();
+async function runAvis(){
+  $('btnAvis').disabled=true;msg('Relevé des avis en cours…');
+  try{await fetch('/.netlify/functions/run?type=avis');await load();msg('Avis relevés ✓')}catch(e){msg('Erreur — réessaie')}
+  $('btnAvis').disabled=false;
 }
-
-async function refreshRanks(){
+async function runRank(){
   if(!confirm('46 recherches SerpApi seront consommées. Continuer ?'))return;
-  $('btnRank').disabled=true;const snap={};let i=0;
-  for(const f of FICHES){
-    msg(`Classement ${++i}/46 : ${f.kw}…`);
-    try{
-      const j=await(await fetch(PROXY_RANK+'?kw='+encodeURIComponent(f.kw)+'&target='+encodeURIComponent(f.target)+'&ll='+encodeURIComponent(f.ll))).json();
-      snap[f.name]=j.position||null;
-    }catch(e){snap[f.name]=null}
-    await sleep(250);
-  }
-  rankS[today()]=snap;lset(K_R,rankS);
-  $('btnRank').disabled=false;msg(`Classements du ${today()} enregistrés ✓`);render();
+  $('btnRank').disabled=true;msg('Relevé des classements en cours… (~10 s)');
+  try{await fetch('/.netlify/functions/run?type=rank');await load();msg('Classements relevés ✓ (les positions manquantes se complètent au prochain relevé)')}catch(e){msg('Relevé lancé — les résultats arriveront au prochain rafraîchissement');setTimeout(load,75000)}
+  $('btnRank').disabled=false;
 }
-
 function exportData(){
-  const b=new Blob([JSON.stringify({ids,avis:avisS,rank:rankS},null,2)],{type:'application/json'});
+  const b=new Blob([JSON.stringify(DATA,null,2)],{type:'application/json'});
   const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='p2_tracker.json';a.click();
 }
-
 function lastTwo(s){const d=Object.keys(s).sort();return[d[d.length-1]?s[d[d.length-1]]:{},d[d.length-2]?s[d[d.length-2]]:{},d]}
+const num=v=>v&&typeof v==='object'?v.n:v;
+const rat=v=>v&&typeof v==='object'?v.r:null;
 let chart;
 function render(){
-  const[aCur,aPrev,aDates]=lastTwo(avisS);
-  const[rCur,rPrev]=lastTwo(rankS);
-  const total=Object.values(aCur).reduce((s,n)=>s+n,0);
+  const[aCur,aPrev,aDates]=lastTwo(DATA.avis||{});
+  const[rCur,rPrev]=lastTwo(DATA.rank||{});
+  const ids=DATA.ids||{};
+  const total=Object.values(aCur).reduce((s,v)=>s+(num(v)||0),0);
   $('grand').textContent=Object.keys(aCur).length?total:'—';
-  const prevT=Object.values(aPrev).reduce((s,n)=>s+n,0);
-  $('sToday').textContent=Object.keys(aPrev).length?('+'+(total-prevT)):'—';
+  const prevT=Object.values(aPrev).reduce((s,v)=>s+(num(v)||0),0);
+  $('sToday').textContent=Object.keys(aPrev).length?((total-prevT>=0?'+':'')+(total-prevT)):'—';
   $('sSnaps').textContent=aDates.length;
   $('sOk').textContent=Object.keys(ids).length+'/46';
   const poss=Object.values(rCur).filter(p=>p);
   $('sTop3').textContent=poss.length?poss.filter(p=>p<=3).length:'—';
   $('sAvgPos').textContent=poss.length?('#'+(poss.reduce((s,p)=>s+p,0)/poss.length).toFixed(1)):'—';
+  $('last').textContent=aDates.length?('dernier relevé : '+aDates[aDates.length-1]):'aucun relevé — clique Actualiser AVIS';
 
   $('tbody').innerHTML=FICHES.map(f=>{
-    const pid=ids[f.name],a=aCur[f.name],ap=aPrev[f.name],r=rCur[f.name],rp=rPrev[f.name];
+    const pid=ids[f.name],av=aCur[f.name],avp=aPrev[f.name];
+    const a=num(av),ap=num(avp),rt=rat(av),r=rCur[f.name],rp=rPrev[f.name];
     const da=(a!=null&&ap!=null)?a-ap:null;
-    const dr=(r!=null&&rp!=null)?rp-r:null; // + = a monté
+    const dr=(r!=null&&rp!=null)?rp-r:null;
     const daS=da==null?'':da>0?'+'+da:da===0?'=':da;
     const drS=dr==null?'':dr>0?'▲'+dr:dr===0?'=':'▼'+(-dr);
     const pc=r==null?'posx':r<=3?'pos1':r<=10?'pos2':'posx';
-    return '<tr'+(pid?'':' class="err"')+'><td>'+(pid?'<a href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(f.name)+'&query_place_id='+pid+'" target="_blank" style="color:inherit;text-decoration:none">'+f.name+' ↗</a>':f.name)+'<div class="kw">'+f.kw+'</div></td>'+
-      '<td class="r mono">'+(a!=null?a:'—')+'</td>'+
+    const alert=da!=null&&da<0;
+    const nm=pid?'<a href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(f.name)+'&query_place_id='+pid+'" target="_blank" style="color:inherit;text-decoration:none">'+f.name+' \u2197</a>':f.name;
+    return '<tr'+(alert?' class="alert"':(pid?'':' class="err"'))+'><td>'+nm+(alert?' <span class="warn">\u26A0 avis supprim\u00e9s</span>':'')+'<div class="kw">'+f.kw+'</div></td>'+
+      '<td class="r mono">'+(a!=null?a:'\u2014')+(rt?' <span class="star">\u2605'+Number(rt).toFixed(1)+'</span>':'')+'</td>'+
       '<td class="r mono '+(da>0?'up':da<0?'dn':'zero')+'">'+daS+'</td>'+
-      '<td class="r mono '+pc+'">'+(r!=null?'#'+r:'—')+'</td>'+
+      '<td class="r mono '+pc+'">'+(r!=null?'#'+r:'\u2014')+'</td>'+
       '<td class="r mono '+(dr>0?'up':dr<0?'dn':'zero')+'">'+drS+'</td></tr>';
   }).join('');
 
   if(chart)chart.destroy();
-  chart=new Chart($('chart'),{type:'line',data:{labels:aDates,datasets:[{label:'Total avis',data:aDates.map(d=>Object.values(avisS[d]).reduce((s,n)=>s+n,0)),borderColor:'#c2552b',backgroundColor:'rgba(245,158,11,.12)',fill:true,tension:.3}]},options:{plugins:{legend:{display:false}}}});
+  chart=new Chart($('chart'),{type:'line',data:{labels:aDates,datasets:[{label:'Total avis',data:aDates.map(d=>Object.values(DATA.avis[d]).reduce((s,v)=>s+(num(v)||0),0)),borderColor:'#c2552b',backgroundColor:'rgba(245,158,11,.12)',fill:true,tension:.3}]},options:{plugins:{legend:{display:false}}}});
 }
-render();
+load();
 </script>
 </body>
 </html>
