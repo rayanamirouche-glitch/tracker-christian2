@@ -1,5 +1,7 @@
+const { connectLambda } = require('@netlify/blobs');
 const core = require('./core');
 exports.handler = async (event) => {
+  connectLambda(event);
   const type = (event.queryStringParameters || {}).type;
   try {
     if (type === 'avis') await core.snapAvis();
