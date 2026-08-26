@@ -1,1 +1,462 @@
-[{"name": "Héritage toiture Gembloux", "q": "toituriers gembloux héritage toiture", "kw": "couvreur gembloux", "target": "héritage", "ll": "50.5610,4.6980"}, {"name": "Protoit Tubize", "q": "protoit tubize toituriers", "kw": "couvreur tubize", "target": "protoit", "ll": "50.6900,4.2050"}, {"name": "Perfect Dak Huldenberg", "q": "perfect dak toiturier huldenberg", "kw": "dakwerker huldenberg", "target": "perfect dak", "ll": "50.7890,4.5850"}, {"name": "OttenDak Huldenberg", "q": "ottendak toitures huldenberg", "kw": "dakwerker huldenberg", "target": "ottendak", "ll": "50.7890,4.5850"}, {"name": "Fleurus Toiture & Charpentes", "q": "fleurus toiture charpentes", "kw": "couvreur fleurus", "target": "fleurus toiture", "ll": "50.4830,4.5500"}, {"name": "Eppegem Dakwerken (1)", "q": "eppegem dakwerken toiture zemst", "kw": "dakwerker zemst", "target": "eppegem", "ll": "50.9560,4.4640"}, {"name": "DakVista Kampenhout", "q": "dakvista toiture kampenhout", "kw": "dakwerker kampenhout", "target": "dakvista", "ll": "50.9390,4.5480"}, {"name": "Dakwerker Tienen", "q": "dakwerker tienen toiture tirlemont", "kw": "dakwerker tienen", "target": "tienen", "ll": "50.8070,4.9370"}, {"name": "Koningslo Dakservice", "q": "koningslo dakservice toitures", "kw": "dakwerker vilvoorde", "target": "koningslo", "ll": "50.9180,4.4090"}, {"name": "L'Atelier du Toit Wavre", "q": "atelier du toit wavre", "kw": "couvreur wavre", "target": "atelier du toit", "ll": "50.7170,4.6010"}, {"name": "Toiture d'Or Leuze", "q": "artisanale toiture d'or leuze pro couvreur", "kw": "couvreur leuze-en-hainaut", "target": "toiture d'or", "ll": "50.6000,3.6170"}, {"name": "Mons Service Pro Toiture", "q": "mons service pro toiture", "kw": "couvreur mons", "target": "service pro", "ll": "50.4540,3.9520"}, {"name": "Dakomax Aarschot", "q": "pro toiturier aarschot dakomax", "kw": "dakwerker aarschot", "target": "dakomax", "ll": "50.9840,4.8380"}, {"name": "Zaventem Flash Dakdekker", "q": "zaventem toiturier flash dakdekker", "kw": "dakwerker zaventem", "target": "flash", "ll": "50.8850,4.4720"}, {"name": "Toiturier Royal Bertem", "q": "toiturier royal dakwerker bertem", "kw": "dakwerker bertem", "target": "royal", "ll": "50.8620,4.6280"}, {"name": "Maison Dakwerken Leuven", "q": "maison dakwerken leuven", "kw": "dakwerker leuven", "target": "maison dakwerken", "ll": "50.8790,4.7010"}, {"name": "Père et Fils Ans", "q": "père et fils artisan toituriers ans", "kw": "couvreur ans", "target": "père et fils", "ll": "50.6620,5.5200"}, {"name": "Dak Artisan Halle", "q": "votre toiturier halle dak artisan", "kw": "dakwerker halle", "target": "dak artisan", "ll": "50.7340,4.2370"}, {"name": "Le Nouveau Dak Tervuren", "q": "nouveau dak tervuren toituriers", "kw": "dakwerker tervuren", "target": "nouveau dak", "ll": "50.8230,4.5160"}, {"name": "Top Toiturier Rhode-St-Genèse", "q": "rhode saint genèse top toiturier", "kw": "couvreur rhode-saint-genèse", "target": "top toiturier", "ll": "50.7480,4.3560"}, {"name": "Beau Dak Beersel", "q": "beau dak toiture beersel", "kw": "dakwerker beersel", "target": "beau dak", "ll": "50.7660,4.3000"}, {"name": "Les Tuiles d'Or Gembloux", "q": "gembloux toituriers tuiles d'or", "kw": "couvreur gembloux", "target": "tuiles d'or", "ll": "50.5610,4.6980"}, {"name": "Les Toitures de Ittre", "q": "toitures de ittre couvreur expert", "kw": "couvreur ittre", "target": "toitures de ittre", "ll": "50.6440,4.2640"}, {"name": "Uccle Pro Couverture", "q": "uccle pro couverture zinguerie charpente", "kw": "couvreur uccle", "target": "uccle pro", "ll": "50.8020,4.3370"}, {"name": "Perfect Couverture Tubize", "q": "perfect couverture tubize toiturier", "kw": "couvreur tubize", "target": "perfect couverture", "ll": "50.6900,4.2050"}, {"name": "L'Artisan Référence Genappe", "q": "artisan référence toiturier genappe", "kw": "couvreur genappe", "target": "artisan référence", "ll": "50.6110,4.4510"}, {"name": "Mon Toiturier Woluwe-St-Pierre", "q": "mon toiturier woluwe saint pierre", "kw": "couvreur woluwe-saint-pierre", "target": "mon toiturier", "ll": "50.8290,4.4300"}, {"name": "Les Toitures de Lasne", "q": "toitures de lasne artisan toituriers", "kw": "couvreur lasne", "target": "toitures de lasne", "ll": "50.6930,4.3970"}, {"name": "Toituriers Kraainem", "q": "toituriers kraainem élite de la toiture", "kw": "couvreur kraainem", "target": "kraainem", "ll": "50.8600,4.4700"}, {"name": "Maison Rénovation Namur", "q": "maison rénovation toiture namur", "kw": "couvreur namur", "target": "maison rénovation", "ll": "50.4670,4.8720"}, {"name": "Best Toiture Liège", "q": "best toiture liège couvreur artisan", "kw": "couvreur liège", "target": "best toiture", "ll": "50.6330,5.5670"}, {"name": "Les Pro Toiture Soignies", "q": "pro toiture soignies couvreur", "kw": "couvreur soignies", "target": "pro toiture", "ll": "50.5790,4.0710"}, {"name": "Eghezée Maître Artisan", "q": "eghezée maître artisan couvreur toiturier", "kw": "couvreur eghezée", "target": "maître artisan", "ll": "50.5900,4.9110"}, {"name": "Élite Courcelles", "q": "élite courcelles pro toiturier", "kw": "couvreur courcelles", "target": "élite", "ll": "50.4640,4.3730"}, {"name": "L'Échelle d'Or Grez-Doiceau", "q": "toiturier échelle d'or grez doiceau", "kw": "couvreur grez-doiceau", "target": "échelle d'or", "ll": "50.7370,4.6980"}, {"name": "Roi de la Couverture Charleroi", "q": "pro toiture roi de la couverture charleroi", "kw": "couvreur charleroi", "target": "roi de la couverture", "ll": "50.4110,4.4440"}, {"name": "Villers-la-Ville Expert", "q": "villers la ville expert toiturier", "kw": "couvreur villers-la-ville", "target": "expert toiturier", "ll": "50.5800,4.5290"}, {"name": "Père Fils 2025 Nivelles", "q": "toiturier père fils 2025 nivelles", "kw": "couvreur nivelles", "target": "père fils 2025", "ll": "50.5980,4.3280"}, {"name": "Expertise Rénovation Incourt", "q": "expertise rénovation toiturier incourt", "kw": "couvreur incourt", "target": "expertise rénovation", "ll": "50.6910,4.7990"}, {"name": "Couvreur Brainois", "q": "couvreur toiturier brainois braine l'alleud", "kw": "couvreur braine-l'alleud", "target": "brainois", "ll": "50.6830,4.3680"}, {"name": "Perwez Maison Rénovation", "q": "perwez maison rénovation toiturier", "kw": "couvreur perwez", "target": "perwez maison", "ll": "50.6280,4.8100"}, {"name": "Ottignies Couverture & Ardoises", "q": "ottignies couverture ardoises", "kw": "couvreur ottignies", "target": "couverture & ardoises", "ll": "50.6650,4.5660"}, {"name": "Rénov. Dak & Toit Kortenberg", "q": "rénovation dak toit toiturier kortenberg", "kw": "dakwerker kortenberg", "target": "dak & toit", "ll": "50.8890,4.5430"}, {"name": "Eppegem Dakwerken (2)", "q": "dakwerken zemst eppegem", "kw": "dakwerker zemst", "target": "dakwerken", "ll": "50.9560,4.4640"}, {"name": "Toiturier du Soleil Overijse", "q": "dakdekker toiturier du soleil overijse", "kw": "dakwerker overijse", "target": "soleil", "ll": "50.7740,4.5350"}, {"name": "Loyens Dakwerken Tongres", "q": "tongres toiturier loyens dakwerken", "kw": "dakwerker tongeren", "target": "loyens", "ll": "50.7800,5.4640"}]
+[
+ {
+  "name": "Héritage toiture : toituriers Gembloux",
+  "q": "Héritage toiture : toituriers Gembloux",
+  "target": "heritage toiture :",
+  "ll": "50.561,4.699",
+  "kw": "toiturier gembloux",
+  "city": "Gembloux",
+  "link": "https://maps.app.goo.gl/V82SJ4F5izedxkfS8",
+  "region": "Belgique"
+ },
+ {
+  "name": "Protoit Tubize toituriers d'élite",
+  "q": "Protoit Tubize toituriers d'élite",
+  "target": "protoit tubize toituriers",
+  "ll": "50.690,4.201",
+  "kw": "toiturier tubize",
+  "city": "Tubize",
+  "link": "https://maps.app.goo.gl/EmgbY3uGgAuicaDT7",
+  "region": "Belgique"
+ },
+ {
+  "name": "Perfect Dak toiturier Huldenberg",
+  "q": "Perfect Dak toiturier Huldenberg",
+  "target": "perfect dak toiturier",
+  "ll": "50.789,4.578",
+  "kw": "dakwerker huldenberg",
+  "city": "Huldenberg",
+  "link": "https://maps.app.goo.gl/ZcJdx7QbAHrr4iKU9",
+  "region": "Belgique"
+ },
+ {
+  "name": "OttenDak toitures",
+  "q": "OttenDak toitures",
+  "target": "ottendak toitures",
+  "ll": "50.85,4.35",
+  "kw": "toiturier belgique",
+  "city": "Belgique",
+  "link": "https://maps.app.goo.gl/iaMJBmsjVbeAD4v77",
+  "region": "Belgique"
+ },
+ {
+  "name": "Fleurus Toiture & Charpentes",
+  "q": "Fleurus Toiture & Charpentes",
+  "target": "fleurus toiture &",
+  "ll": "50.484,4.545",
+  "kw": "toiturier fleurus",
+  "city": "Fleurus",
+  "link": "https://maps.app.goo.gl/eoQVScVKEE5jHk658",
+  "region": "Belgique"
+ },
+ {
+  "name": "Eppegem Dakwerken-Toiture",
+  "q": "Eppegem Dakwerken-Toiture",
+  "target": "eppegem dakwerken-toiture",
+  "ll": "50.963,4.457",
+  "kw": "dakwerker eppegem",
+  "city": "Eppegem",
+  "link": "https://maps.app.goo.gl/ioLZtjpam8MpKGpg6",
+  "region": "Belgique"
+ },
+ {
+  "name": "DakVista Toiture Kampenhout",
+  "q": "DakVista Toiture Kampenhout",
+  "target": "dakvista toiture kampenhout",
+  "ll": "50.939,4.545",
+  "kw": "dakwerker kampenhout",
+  "city": "Kampenhout",
+  "link": "https://maps.app.goo.gl/g19WLaK6gf4qQHSp8",
+  "region": "Belgique"
+ },
+ {
+  "name": "Dakwerker Tienen - Toiture Tirlemont",
+  "q": "Dakwerker Tienen - Toiture Tirlemont",
+  "target": "dakwerker tienen -",
+  "ll": "50.807,4.938",
+  "kw": "dakwerker tienen",
+  "city": "Tienen",
+  "link": "https://maps.app.goo.gl/HY6q8y1kpj6ob6sS7",
+  "region": "Belgique"
+ },
+ {
+  "name": "Koningslo Dakservice & Toitures",
+  "q": "Koningslo Dakservice & Toitures",
+  "target": "koningslo dakservice &",
+  "ll": "50.897,4.408",
+  "kw": "dakwerker koningslo",
+  "city": "Koningslo",
+  "link": "https://maps.app.goo.gl/FbSDhvHc4pWR28Lb9",
+  "region": "Belgique"
+ },
+ {
+  "name": "L'Atelier du Toit Wavre",
+  "q": "L'Atelier du Toit Wavre",
+  "target": "l'atelier du toit",
+  "ll": "50.717,4.610",
+  "kw": "toiturier wavre",
+  "city": "Wavre",
+  "link": "https://maps.app.goo.gl/2Fu6vkkU4UhWcEwt6",
+  "region": "Belgique"
+ },
+ {
+  "name": "Artisanale Toiture d'Or Leuze - Pro Couvreur",
+  "q": "Artisanale Toiture d'Or Leuze - Pro Couvreur",
+  "target": "artisanale toiture d'or",
+  "ll": "50.554,4.905",
+  "kw": "toiturier leuze",
+  "city": "Leuze",
+  "link": "https://maps.app.goo.gl/ifKEuKkSwNJhtXTn8",
+  "region": "Belgique"
+ },
+ {
+  "name": "Mons Service Pro Toiture",
+  "q": "Mons Service Pro Toiture",
+  "target": "mons service pro",
+  "ll": "50.454,3.952",
+  "kw": "toiturier mons",
+  "city": "Mons",
+  "link": "https://maps.app.goo.gl/agigJQfPVXpEQ1MH8",
+  "region": "Belgique"
+ },
+ {
+  "name": "Pro Toiturier Aarschot Dakomax",
+  "q": "Pro Toiturier Aarschot Dakomax",
+  "target": "pro toiturier aarschot",
+  "ll": "50.985,4.836",
+  "kw": "dakwerker aarschot",
+  "city": "Aarschot",
+  "link": "https://maps.app.goo.gl/w2JkppH8i2Xnh3PB9",
+  "region": "Belgique"
+ },
+ {
+  "name": "Zaventem Toiturier Flash Dakdekker",
+  "q": "Zaventem Toiturier Flash Dakdekker",
+  "target": "zaventem toiturier flash",
+  "ll": "50.884,4.472",
+  "kw": "dakwerker zaventem",
+  "city": "Zaventem",
+  "link": "https://maps.app.goo.gl/6MJg2JXGHSDDHGWR6",
+  "region": "Belgique"
+ },
+ {
+  "name": "Le Toiturier Royal – Dakwerker Bertem",
+  "q": "Le Toiturier Royal – Dakwerker Bertem",
+  "target": "le toiturier royal",
+  "ll": "50.862,4.622",
+  "kw": "dakwerker bertem",
+  "city": "Bertem",
+  "link": "https://maps.app.goo.gl/mm2iX7r2qN4wu7Ba8",
+  "region": "Belgique"
+ },
+ {
+  "name": "Maison Dakwerken Leuven",
+  "q": "Maison Dakwerken Leuven",
+  "target": "maison dakwerken leuven",
+  "ll": "50.879,4.701",
+  "kw": "dakwerker leuven",
+  "city": "Leuven",
+  "link": "https://maps.app.goo.gl/YzVaHRdd3fa8U7ii8",
+  "region": "Belgique"
+ },
+ {
+  "name": "Père et Fils artisan toituriers Ans",
+  "q": "Père et Fils artisan toituriers Ans",
+  "target": "pere et fils",
+  "ll": "50.663,5.520",
+  "kw": "toiturier ans",
+  "city": "Ans",
+  "link": "https://maps.app.goo.gl/Um4YEUSH1JZDqobX6",
+  "region": "Belgique"
+ },
+ {
+  "name": "Votre toiturier à Halle Dak Artisan",
+  "q": "Votre toiturier à Halle Dak Artisan",
+  "target": "votre toiturier a",
+  "ll": "50.736,4.237",
+  "kw": "dakwerker halle",
+  "city": "Halle",
+  "link": "https://maps.app.goo.gl/yB4dvTVAGLb9i7po8",
+  "region": "Belgique"
+ },
+ {
+  "name": "Le Nouveau Dak Tervuren",
+  "q": "Le Nouveau Dak Tervuren",
+  "target": "le nouveau dak",
+  "ll": "50.823,4.510",
+  "kw": "dakwerker tervuren",
+  "city": "Tervuren",
+  "link": "https://maps.app.goo.gl/4vp7seMVi8AgHzxE7",
+  "region": "Belgique"
+ },
+ {
+  "name": "Rhode-Saint-Genèse Top Toiturier",
+  "q": "Rhode-Saint-Genèse Top Toiturier",
+  "target": "rhode-saint-genese top toiturier",
+  "ll": "50.746,4.357",
+  "kw": "toiturier rhode saint genese",
+  "city": "Rhode-Saint-Genèse",
+  "link": "https://maps.app.goo.gl/m592CwjEFqvaQaz26",
+  "region": "Belgique"
+ },
+ {
+  "name": "Beau Dak – Toiture Beersel",
+  "q": "Beau Dak – Toiture Beersel",
+  "target": "beau dak –",
+  "ll": "50.766,4.300",
+  "kw": "dakwerker beersel",
+  "city": "Beersel",
+  "link": "https://maps.app.goo.gl/Bh1cQ4h4nKRHgGZj9",
+  "region": "Belgique"
+ },
+ {
+  "name": "Gembloux toituriers Les Tuiles d'Or",
+  "q": "Gembloux toituriers Les Tuiles d'Or",
+  "target": "gembloux toituriers les",
+  "ll": "50.561,4.699",
+  "kw": "toiturier gembloux",
+  "city": "Gembloux",
+  "link": "https://maps.app.goo.gl/r687wtDoCjjmjX417",
+  "region": "Belgique"
+ },
+ {
+  "name": "Les Toitures de Ittre",
+  "q": "Les Toitures de Ittre",
+  "target": "les toitures de",
+  "ll": "50.643,4.264",
+  "kw": "toiturier ittre",
+  "city": "Ittre",
+  "link": "https://maps.app.goo.gl/1L6k2R5qQUt3EnsJ6",
+  "region": "Belgique"
+ },
+ {
+  "name": "Uccle Pro Couverture / zinguerie charpente",
+  "q": "Uccle Pro Couverture / zinguerie charpente",
+  "target": "uccle pro couverture",
+  "ll": "50.802,4.337",
+  "kw": "toiturier uccle",
+  "city": "Uccle",
+  "link": "https://maps.app.goo.gl/ibDhUXaQhzNVFBJb8",
+  "region": "Belgique"
+ },
+ {
+  "name": "Perfect Couverture Tubize toiturier",
+  "q": "Perfect Couverture Tubize toiturier",
+  "target": "perfect couverture tubize",
+  "ll": "50.690,4.201",
+  "kw": "toiturier tubize",
+  "city": "Tubize",
+  "link": "https://maps.app.goo.gl/wNGmry5mZtW2SAmd6",
+  "region": "Belgique"
+ },
+ {
+  "name": "L'Artisan Référence – Toiturier Genappe",
+  "q": "L'Artisan Référence – Toiturier Genappe",
+  "target": "l'artisan reference –",
+  "ll": "50.611,4.451",
+  "kw": "toiturier genappe",
+  "city": "Genappe",
+  "link": "https://maps.app.goo.gl/MAyDsL5SFJgoz89dA",
+  "region": "Belgique"
+ },
+ {
+  "name": "Mon Toiturier à Woluwe-Saint-Pierre",
+  "q": "Mon Toiturier à Woluwe-Saint-Pierre",
+  "target": "mon toiturier a",
+  "ll": "50.828,4.434",
+  "kw": "toiturier woluwe saint pierre",
+  "city": "Woluwe-Saint-Pierre",
+  "link": "https://maps.app.goo.gl/ieKPKkNTzrGC8ru88",
+  "region": "Belgique"
+ },
+ {
+  "name": "Les Toitures de Lasne",
+  "q": "Les Toitures de Lasne",
+  "target": "les toitures de",
+  "ll": "50.663,4.480",
+  "kw": "toiturier lasne",
+  "city": "Lasne",
+  "link": "https://maps.app.goo.gl/Ld8FKg6VScKXy4xq8",
+  "region": "Belgique"
+ },
+ {
+  "name": "Toituriers Kraainem l'élite",
+  "q": "Toituriers Kraainem l'élite",
+  "target": "toituriers kraainem l'elite",
+  "ll": "50.861,4.447",
+  "kw": "toiturier kraainem",
+  "city": "Kraainem",
+  "link": "https://maps.app.goo.gl/kkBNXm1Wj9BbZGET7",
+  "region": "Belgique"
+ },
+ {
+  "name": "Maison Rénovation Toiture Namur",
+  "q": "Maison Rénovation Toiture Namur",
+  "target": "maison renovation toiture",
+  "ll": "50.467,4.867",
+  "kw": "toiturier namur",
+  "city": "Namur",
+  "link": "https://maps.app.goo.gl/EpDucZNYicXgN4PYA",
+  "region": "Belgique"
+ },
+ {
+  "name": "Best Toiture Liège couvreur artisan",
+  "q": "Best Toiture Liège couvreur artisan",
+  "target": "best toiture liege",
+  "ll": "50.633,5.567",
+  "kw": "toiturier liege",
+  "city": "Liège",
+  "link": "https://maps.app.goo.gl/hFZC1MYRURdanaMt7",
+  "region": "Belgique"
+ },
+ {
+  "name": "Les Pro Toiture Soignies",
+  "q": "Les Pro Toiture Soignies",
+  "target": "les pro toiture",
+  "ll": "50.579,4.071",
+  "kw": "toiturier soignies",
+  "city": "Soignies",
+  "link": "https://maps.app.goo.gl/iN6z3kZtpiWhPzt9A",
+  "region": "Belgique"
+ },
+ {
+  "name": "Eghezée maître artisan couvreur",
+  "q": "Eghezée maître artisan couvreur",
+  "target": "eghezee maitre artisan",
+  "ll": "50.590,4.912",
+  "kw": "toiturier eghezee",
+  "city": "Eghezée",
+  "link": "https://maps.app.goo.gl/beMThitEjgqxsmuK6",
+  "region": "Belgique"
+ },
+ {
+  "name": "Élite Courcelles pro toiturier",
+  "q": "Élite Courcelles pro toiturier",
+  "target": "elite courcelles pro",
+  "ll": "50.463,4.375",
+  "kw": "toiturier courcelles",
+  "city": "Courcelles",
+  "link": "https://maps.app.goo.gl/oQr6EhCbjuqFePjH9",
+  "region": "Belgique"
+ },
+ {
+  "name": "Toiturier L'Échelle d'Or Grez-Doiceau",
+  "q": "Toiturier L'Échelle d'Or Grez-Doiceau",
+  "target": "toiturier l'echelle d'or",
+  "ll": "50.737,4.698",
+  "kw": "toiturier grez doiceau",
+  "city": "Grez-Doiceau",
+  "link": "https://maps.app.goo.gl/sdDxicgfvNNicXbHA",
+  "region": "Belgique"
+ },
+ {
+  "name": "Pro Toiture Le Roi de la Couverture Charleroi",
+  "q": "Pro Toiture Le Roi de la Couverture Charleroi",
+  "target": "pro toiture le",
+  "ll": "50.412,4.444",
+  "kw": "toiturier charleroi",
+  "city": "Charleroi",
+  "link": "https://maps.app.goo.gl/cGrAyMoB14xL81ccA",
+  "region": "Belgique"
+ },
+ {
+  "name": "Villers-la-Ville expert toiturier",
+  "q": "Villers-la-Ville expert toiturier",
+  "target": "villers-la-ville expert toiturier",
+  "ll": "50.576,4.531",
+  "kw": "toiturier villers la ville",
+  "city": "Villers-la-Ville",
+  "link": "https://maps.app.goo.gl/GHMQ6C6MiCyLze9C7",
+  "region": "Belgique"
+ },
+ {
+  "name": "Toiturier Père Fils 2025 Nivelles",
+  "q": "Toiturier Père Fils 2025 Nivelles",
+  "target": "toiturier pere fils",
+  "ll": "50.598,4.325",
+  "kw": "toiturier nivelles",
+  "city": "Nivelles",
+  "link": "https://maps.app.goo.gl/MhL3VDbxT7N28EzLA",
+  "region": "Belgique"
+ },
+ {
+  "name": "Expertise Rénovation toiturier Incourt",
+  "q": "Expertise Rénovation toiturier Incourt",
+  "target": "expertise renovation toiturier",
+  "ll": "50.690,4.799",
+  "kw": "toiturier incourt",
+  "city": "Incourt",
+  "link": "https://maps.app.goo.gl/DrTU223eL12E6LPw5",
+  "region": "Belgique"
+ },
+ {
+  "name": "Couvreur toiturier Brainois",
+  "q": "Couvreur toiturier Brainois",
+  "target": "couvreur toiturier brainois",
+  "ll": "50.683,4.370",
+  "kw": "toiturier braine",
+  "city": "Braine",
+  "link": "https://maps.app.goo.gl/KBYJvqnrwLNFYTrJ8",
+  "region": "Belgique"
+ },
+ {
+  "name": "Perwez Maison Rénovation",
+  "q": "Perwez Maison Rénovation",
+  "target": "perwez maison renovation",
+  "ll": "50.628,4.812",
+  "kw": "toiturier perwez",
+  "city": "Perwez",
+  "link": "https://maps.app.goo.gl/KKg75ff5ufBqsyXN7",
+  "region": "Belgique"
+ },
+ {
+  "name": "Ottignies Couverture & Ardoises",
+  "q": "Ottignies Couverture & Ardoises",
+  "target": "ottignies couverture &",
+  "ll": "50.665,4.567",
+  "kw": "toiturier ottignies",
+  "city": "Ottignies",
+  "link": "https://maps.app.goo.gl/g5wsRjjWGUh7NTbC6",
+  "region": "Belgique"
+ },
+ {
+  "name": "Dakdekker & Toiturier du Soleil – Overijse",
+  "q": "Dakdekker & Toiturier du Soleil – Overijse",
+  "target": "dakdekker & toiturier",
+  "ll": "50.774,4.535",
+  "kw": "dakwerker overijse",
+  "city": "Overijse",
+  "link": "https://maps.app.goo.gl/2SMiMmAXdFaGog8UA",
+  "region": "Belgique"
+ },
+ {
+  "name": "Rénovation Dak & Toit – Kortenberg",
+  "q": "Rénovation Dak & Toit – Kortenberg",
+  "target": "renovation dak &",
+  "ll": "50.888,4.546",
+  "kw": "dakwerker kortenberg",
+  "city": "Kortenberg",
+  "link": "https://maps.app.goo.gl/FgiSxVKDWqqMqAix5",
+  "region": "Belgique"
+ },
+ {
+  "name": "Eppegem Dakwerken (2e fiche Zemst)",
+  "q": "Eppegem Dakwerken (2e fiche Zemst)",
+  "target": "eppegem dakwerken (2e",
+  "ll": "50.983,4.462",
+  "kw": "dakwerker zemst",
+  "city": "Zemst",
+  "link": "https://maps.app.goo.gl/WtmQtdy3fQPEpzDy8",
+  "region": "Belgique"
+ },
+ {
+  "name": "Toiturier Loyens Dakwerken Tongres",
+  "q": "Toiturier Loyens Dakwerken Tongres",
+  "target": "toiturier loyens dakwerken",
+  "ll": "50.781,5.464",
+  "kw": "dakwerker tongres",
+  "city": "Tongres",
+  "link": "https://maps.app.goo.gl/RN2hvP9FkBpZ7t9d8",
+  "region": "Belgique"
+ }
+]

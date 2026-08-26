@@ -1,0 +1,218 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Tracker P2 Belgique — R.Consulting</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<style>
+:root{--ink:#111318;--muted:#9a9ea8;--line:#e2e3e6;--terra:#c2552b;--bg:#fafafa;--card:#fff;--ok:#059669;--warn:#f59e0b;--bad:#dc2626}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);padding-bottom:60px}
+.header{position:sticky;top:0;z-index:10;background:rgba(250,250,250,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:18px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.logo{width:40px;height:40px;border-radius:11px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.05rem}
+.h-t{flex:1;min-width:200px}.h-name{font-weight:800;font-size:1.25rem}.h-sub{font-family:'DM Mono',monospace;font-size:.75rem;color:var(--muted)}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+.btn{font-family:'DM Mono',monospace;font-size:.75rem;font-weight:700;border:none;border-radius:10px;padding:9px 14px;cursor:pointer;transition:all .15s}
+.btn-avis{background:var(--ink);color:#fff}.btn-avis:hover{background:#333}
+.btn-rank{background:#fff;color:var(--ink);border:1px solid var(--line)}.btn-rank:hover{background:#f0f0f2}
+.btn:disabled{opacity:.5;cursor:wait}
+.msg{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--muted);padding:8px 20px;min-height:28px}
+.wrap{max-width:920px;margin:0 auto;padding:10px 16px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.stat-lbl{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.stat-val{font-weight:900;font-size:1.7rem;line-height:1}.stat-val small{font-size:.85rem;font-weight:700;color:var(--ok);margin-left:6px}
+.chartbox{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:16px}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;font-size:.92rem}
+thead th{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);background:#fdfdfd}
+tbody td{padding:12px 14px;border-bottom:1px solid var(--line)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#f9f9fb}
+tr.alert{background:#fef2f2}tr.alert:hover{background:#fee2e2}
+.fname{font-weight:700;color:var(--ink);text-decoration:none}.fname:hover{color:var(--terra);text-decoration:underline}
+.fcity{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--muted)}
+.delta{font-family:'DM Mono',monospace;font-size:.68rem;font-weight:700;padding:2px 6px;border-radius:5px;margin-left:6px}
+.delta.up{background:#e8f5e9;color:var(--ok)}.delta.down{background:#fee2e2;color:var(--bad)}
+.pos{font-family:'DM Mono',monospace;font-weight:800}
+.pos.top{color:var(--ok)}.pos.mid{color:var(--warn)}.pos.low,.pos.none{color:var(--muted)}
+.star{color:var(--warn);font-size:.85rem}
+.unlinked{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--bad);font-weight:700}
+.foot{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--muted);text-align:center;padding:20px}
+.objbar{height:6px;background:var(--line);border-radius:3px;margin-top:10px;overflow:hidden}
+.objfill{height:100%;background:var(--ok);border-radius:3px;transition:width .3s}
+.objcell{min-width:110px}
+.objtxt{font-family:'DM Mono',monospace;font-size:.68rem;font-weight:700}
+.objtxt.done{color:var(--ok)}
+.minibar{height:5px;background:var(--line);border-radius:3px;margin-top:5px;overflow:hidden}
+.minifill{height:100%;background:var(--ok);border-radius:3px}
+.minifill.part{background:var(--warn)}
+@media(max-width:640px){thead th:nth-child(3),tbody td:nth-child(3){display:none}}
+</style></head><body>
+<div class="header"><div class="logo">R.</div>
+<div class="h-t"><div class="h-name">Tracker P2 Belgique</div><div class="h-sub">avis Google + classement local géolocalisé · 46 fiches · maj auto nocturne</div></div>
+<div class="btns">
+<button class="btn btn-avis" id="btnAvis" onclick="runAvis()">↻ Actualiser AVIS</button>
+<button class="btn btn-rank" id="btnRank" onclick="runRank()">📍 Classements</button>
+<button class="btn btn-rank" id="btnC3" onclick="runC3()">🗓 3 jours</button>
+</div></div>
+<div class="msg" id="msg"></div>
+<div class="wrap">
+<div class="stats">
+<div class="stat"><div class="stat-lbl">Total avis</div><div class="stat-val" id="stTotal">—</div></div>
+<div class="stat"><div class="stat-lbl">Note moyenne</div><div class="stat-val" id="stNote">—</div></div>
+<div class="stat"><div class="stat-lbl">Fiches liées</div><div class="stat-val" id="stLink">—</div></div>
+<div class="stat"><div class="stat-lbl">Top 3 local</div><div class="stat-val" id="stTop">—</div></div>
+</div>
+<div class="chartbox"><canvas id="chart" height="90"></canvas></div>
+<table><thead><tr><th>#</th><th>Fiche</th><th>Ville</th><th>Avis</th><th>⭐</th><th>Position</th><th>J-2·J-1·J</th></tr></thead>
+<tbody id="tbody"></tbody></table>
+<div class="foot">R.Consulting · snapshot avis chaque nuit 3h UTC · classements auto le lundi</div>
+</div>
+<script>
+const admin = location.search.includes('admin');
+const $ = id => document.getElementById(id);
+function msg(t){ $('msg').textContent = t || '' }
+let DATA = null, chart = null;
+
+function dates(hist){ return Object.keys(hist).sort() }
+function lastTwo(hist){ const d = dates(hist); return [d[d.length-1], d[d.length-2]] }
+
+async function load(){
+  try{
+    const r = await fetch('/.netlify/functions/data');
+    DATA = await r.json();
+    render();
+  }catch(e){ msg('Erreur de chargement — réessaie dans une minute') }
+}
+
+function render(){
+  const { fiches, avis, rank, ids, base } = DATA;
+  const BASE = base || {};
+  const [dNow, dPrev] = lastTwo(avis);
+  const aNow = avis[dNow] || {}, aPrev = avis[dPrev] || {};
+  const rDates = dates(rank);
+  const rNow = rank[rDates[rDates.length-1]] || {};
+  const rPrev = rank[rDates[rDates.length-2]] || {};
+
+  let total = 0, totPrev = 0, notes = [], linked = 0, top3 = 0;
+  const rows = fiches.map((f, i) => {
+    const a = aNow[f.name], ap = aPrev[f.name];
+    const pid = ids[f.name];
+    if (pid) linked++;
+    const n = a ? a.n : null;
+    if (n != null) total += n;
+    if (ap && ap.n != null) totPrev += ap.n;
+    if (a && a.r) notes.push(a.r);
+    const pos = rNow[f.name] != null ? rNow[f.name] : null;
+    const posPrev = rPrev[f.name] != null ? rPrev[f.name] : null;
+    if (pos !== null && pos <= 3) top3++;
+
+    const dropped = a && ap && a.n < ap.n;
+    const dAvis = a && ap ? a.n - ap.n : null;
+    const dPos = (pos !== null && posPrev !== null) ? posPrev - pos : null;
+
+    const mapsUrl = pid
+      ? 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(f.name) + '&query_place_id=' + pid
+      : f.link;
+
+    let avisCell;
+    if (!pid) avisCell = '<span class="unlinked">non liée ⚠</span>';
+    else if (n == null) avisCell = '<span class="fcity">—</span>';
+    else {
+      avisCell = '<b>' + n + '</b>';
+      if (dAvis) avisCell += '<span class="delta ' + (dAvis > 0 ? 'up' : 'down') + '">' + (dAvis > 0 ? '+' : '') + dAvis + '</span>';
+      if (dropped) avisCell += ' <span class="unlinked">⚠</span>';
+    }
+
+    let posCell;
+    if (pos === null) posCell = '<span class="pos none">—</span>';
+    else {
+      const cls = pos <= 3 ? 'top' : pos <= 10 ? 'mid' : 'low';
+      posCell = '<span class="pos ' + cls + '">#' + pos + '</span>';
+      if (dPos) posCell += '<span class="delta ' + (dPos > 0 ? 'up' : 'down') + '">' + (dPos > 0 ? '▲' + dPos : '▼' + Math.abs(dPos)) + '</span>';
+    }
+
+    const star = (a && a.r) ? '<span class="star">' + a.r.toFixed(1) + ' ★</span>' : '<span class="fcity">—</span>';
+    const alertCls = (!pid || dropped) ? ' class="alert"' : '';
+    return '<tr' + alertCls + '><td class="fcity">' + String(i+1).padStart(2,'0') + '</td>' +
+      '<td><a class="fname" href="' + mapsUrl + '" target="_blank" rel="noopener">' + f.name + '</a></td>' +
+      '<td class="fcity">' + f.city + '</td><td>' + avisCell + '</td><td>' + star + '</td><td>' + posCell + '</td>' + c3cell(f.name) + '</tr>';
+  }).join('');
+
+  $('tbody').innerHTML = rows;
+  const dTot = totPrev ? total - totPrev : 0;
+  $('stTotal').innerHTML = total + (dTot > 0 ? '<small>+' + dTot + '</small>' : '');
+  $('stNote').textContent = notes.length ? (notes.reduce((a,b)=>a+b,0)/notes.length).toFixed(2) + ' ★' : '—';
+  $('stLink').textContent = linked + ' / ' + fiches.length;
+  $('stTop').textContent = top3;
+
+  const ds = dates(avis);
+  const totals = ds.map(d => Object.values(avis[d]).reduce((s,v) => s + (v && v.n ? v.n : 0), 0));
+  if (chart) chart.destroy();
+  chart = new Chart($('chart'), {
+    type: 'line',
+    data: { labels: ds, datasets: [{ label: 'Total avis du réseau', data: totals, borderColor: '#c2552b', backgroundColor: 'rgba(194,85,43,.08)', fill: true, tension: .3, pointRadius: 3 }] },
+    options: { plugins: { legend: { labels: { font: { family: 'DM Mono', size: 10 } } } }, scales: { x: { ticks: { font: { family: 'DM Mono', size: 9 } } }, y: { ticks: { font: { family: 'DM Mono', size: 9 } } } } }
+  });
+}
+
+async function runAvis(){
+  $('btnAvis').disabled = true; msg('Relevé des avis en cours… (~15 s)');
+  try{ await fetch('/.netlify/functions/run?type=avis'); await load(); msg('Avis relevés ✓') }
+  catch(e){ msg('Relevé lancé — recharge dans une minute') }
+  $('btnAvis').disabled = false;
+}
+
+async function runRank(){
+  if(!confirm('Relever les classements maintenant ?')) return;
+  $('btnRank').disabled = true;
+  const n = (DATA && DATA.fiches ? DATA.fiches.length : 43);
+  const waves = [];
+  for (let s = 0; s < n; s += 10) waves.push(s);
+  try{
+    msg('Vague 1 / ' + waves.length + '…');
+    const r = await fetch('/.netlify/functions/run?type=rank&start=0' + (admin ? '&force=1' : ''));
+    if (r.status === 429) {
+      const j = await r.json();
+      msg('Classements déjà relevés récemment — prochain relevé possible dans ~' + j.cooldown + 'h');
+      $('btnRank').disabled = false; return;
+    }
+    for (let i = 1; i < waves.length; i++) {
+      msg('Vague ' + (i+1) + ' / ' + waves.length + '…');
+      await fetch('/.netlify/functions/run?type=rank&force=1&start=' + waves[i]);
+    }
+    await load(); msg('Classements à jour ✓ (' + waves.length + ' vagues)');
+  }catch(e){ msg('Erreur pendant le relevé — recharge et réessaie'); }
+  $('btnRank').disabled = false;
+}
+
+load();
+
+let C3=null,C3DAYS=null;
+function c3cell(name){
+  if(!C3)return '<td class="fcity">—</td>';
+  const c=C3[name];
+  if(!c)return '<td class="fcity">—</td>';
+  if(c.err)return '<td class="fcity" title="'+c.err+'">⚠</td>';
+  const f=v=>v>0?'<b>'+v+'</b>':'<span style="color:#c9ccd2">0</span>';
+  return '<td style="font-family:\'DM Mono\',monospace;font-size:.72rem;white-space:nowrap">'+f(c.j2)+' · '+f(c.j1)+' · '+f(c.j0)+'</td>';
+}
+async function runC3(){
+  const b=$('btnC3');b.disabled=true;
+  C3={};let nb=null;
+  const NN=DATA.fiches?DATA.fiches.length:0;
+  let t0=0,t1=0,t2=0;
+  for(let s=0;s<NN;s+=3){
+    msg('Comptage 3 jours — fiches '+(s+1)+'–'+Math.min(s+3,NN)+' / '+NN+'…');
+    try{
+      const r=await fetch('/.netlify/functions/count3j?start='+s+'&n=3');
+      const j=await r.json();C3DAYS=j.days;
+      for(const k in j.results){
+        C3[k]=j.results[k];
+        const c=j.results[k];
+        if(!c.err){t0+=c.j0;t1+=c.j1;t2+=c.j2;}
+      }
+      render();
+    }catch(e){}
+  }
+  msg('3 jours ✓ — avant-hier '+t2+' · hier '+t1+' · aujourd\'hui '+t0+' (avis visibles sur Google)');
+  b.disabled=false;
+}
+</script></body></html>
