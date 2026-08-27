@@ -42,6 +42,33 @@ exports.handler = async (event) => {
         }, null, 1)
       };
     }
+    if (q.type === 'diag2') {
+      const store = getStore('tracker');
+      const avis = (await store.get('avis', { type: 'json' })) || {};
+      const today = new Date().toISOString().slice(0, 10);
+      const snapToday = avis[today] || {};
+      const sum = Object.values(snapToday).reduce((s, v) => s + (v && v.n ? v.n : 0), 0);
+      const sample = {};
+      Object.keys(snapToday).slice(0, 6).forEach(k => { sample[k] = snapToday[k]; });
+      let dataSide = null;
+      try {
+        const all = await core.allData();
+        const dToday = (all.avis && all.avis[today]) || {};
+        dataSide = {
+          nb_fiches_dans_data: Object.keys(dToday).length,
+          somme_dans_data: Object.values(dToday).reduce((s, v) => s + (v && v.n ? v.n : 0), 0),
+          dates_connues: Object.keys(all.avis || {}).sort()
+        };
+      } catch (e) { dataSide = { erreur: String(e) }; }
+      return {
+        statusCode: 200,
+        headers: { 'Access-Control-Allow-Origin': '*' },
+        body: JSON.stringify({
+          blob_direct: { nb_fiches: Object.keys(snapToday).length, somme: sum, echantillon: sample },
+          via_fonction_data: dataSide
+        }, null, 1)
+      };
+    }
     if (q.type === 'avis') {
       const start = (q.start !== undefined) ? parseInt(q.start, 10) : null;
       await core.snapAvis(start);
