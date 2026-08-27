@@ -6,10 +6,11 @@ exports.handler = async (event) => {
   const baseUrl = process.env.URL || ('https://' + ((event.headers && event.headers.host) || ''));
   try {
     if (q.type === 'avis') {
-      await core.snapAvis();
+      const start = (q.start !== undefined) ? parseInt(q.start, 10) : null;
+      await core.snapAvis(start);
     } else if (q.type === 'relink') {
       await core.relink();
-      await core.snapAvis();
+      await core.snapAvis(null);
     } else if (q.type === 'rank') {
       if (q.force !== '1') {
         const left = await core.rankCooldown();
