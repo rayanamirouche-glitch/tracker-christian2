@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Tracker P2 Belgique — R.Consulting</title>
+<title>Tracker Christian 2 — 929 avis</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=DM+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
 <style>
@@ -46,7 +46,7 @@ tr.alert{background:#fef2f2}tr.alert:hover{background:#fee2e2}
 @media(max-width:640px){thead th:nth-child(3),tbody td:nth-child(3){display:none}}
 </style></head><body>
 <div class="header"><div class="logo">R.</div>
-<div class="h-t"><div class="h-name">Tracker P2 Belgique</div><div class="h-sub">avis Google + classement local géolocalisé · 46 fiches · maj auto nocturne</div></div>
+<div class="h-t"><div class="h-name">Tracker Christian 2</div><div class="h-sub">avis Google + classement local géolocalisé · 46 fiches · maj auto nocturne</div></div>
 <div class="btns">
 <button class="btn btn-avis" id="btnAvis" onclick="runAvis()">↻ Actualiser AVIS</button>
 <button class="btn btn-rank" id="btnRank" onclick="runRank()">📍 Classements</button>
@@ -56,10 +56,11 @@ tr.alert{background:#fef2f2}tr.alert:hover{background:#fee2e2}
 <div class="wrap">
 <div class="stats">
 <div class="stat"><div class="stat-lbl">Total avis</div><div class="stat-val" id="stTotal">—</div></div>
+<div class="stat"><div class="stat-lbl">Avis auj.</div><div class="stat-val" id="stDay">—</div></div>
 <div class="stat"><div class="stat-lbl">Note moyenne</div><div class="stat-val" id="stNote">—</div></div>
 <div class="stat"><div class="stat-lbl">Fiches liées</div><div class="stat-val" id="stLink">—</div></div>
 <div class="stat"><div class="stat-lbl">Top 3 local</div><div class="stat-val" id="stTop">—</div></div>
-<div class="stat"><div class="stat-lbl">Objectif +929</div><div class="stat-val" id="stObj">—</div><div class="objbar"><div class="objfill" id="objFill" style="width:0%"></div></div></div>
+<div class="stat"><div class="stat-lbl">Objectif</div><div class="stat-val" id="stObj">—</div><div class="objbar"><div class="objfill" id="objFill" style="width:0%"></div></div></div>
 </div>
 <div class="chartbox"><canvas id="chart" height="90"></canvas></div>
 <table><thead><tr><th>#</th><th>Fiche</th><th>Ville</th><th>Avis</th><th>⭐</th><th>Position</th><th>Objectif</th><th>J-2·J-1·J</th></tr></thead>
@@ -92,14 +93,16 @@ function render(){
   const rNow = rank[rDates[rDates.length-1]] || {};
   const rPrev = rank[rDates[rDates.length-2]] || {};
 
-  let total = 0, totPrev = 0, notes = [], linked = 0, top3 = 0;
+  let total = 0, totPrev = 0, pairNow = 0, notes = [], linked = 0, top3 = 0;
   const rows = fiches.map((f, i) => {
     const a = aNow[f.name], ap = aPrev[f.name];
     const pid = ids[f.name];
     if (pid) linked++;
     const n = a ? a.n : null;
     if (n != null) total += n;
-    if (ap && ap.n != null) totPrev += ap.n;
+    // Delta calcule sur les seules fiches presentes dans LES DEUX releves : sinon une
+    // fiche absente du releve du jour passe pour une perte d'avis.
+    if (n != null && ap && ap.n != null) { pairNow += n; totPrev += ap.n; }
     if (a && a.r) notes.push(a.r);
     const pos = rNow[f.name] != null ? rNow[f.name] : null;
     const posPrev = rPrev[f.name] != null ? rPrev[f.name] : null;
@@ -149,8 +152,9 @@ function render(){
   }).join('');
 
   $('tbody').innerHTML = rows;
-  const dTot = totPrev ? total - totPrev : 0;
+  const dTot = totPrev ? pairNow - totPrev : 0;
   $('stTotal').innerHTML = total + (dTot > 0 ? '<small>+' + dTot + '</small>' : '');
+  $('stDay').textContent = totPrev ? ((dTot > 0 ? '+' : '') + dTot) : '—';
   $('stNote').textContent = notes.length ? (notes.reduce((a,b)=>a+b,0)/notes.length).toFixed(2) + ' ★' : '—';
   $('stLink').textContent = linked + ' / ' + fiches.length;
   $('stTop').textContent = top3;
