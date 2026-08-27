@@ -7,7 +7,8 @@
   "kw": "toiturier gembloux",
   "city": "Gembloux",
   "link": "https://maps.app.goo.gl/V82SJ4F5izedxkfS8",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 21
  },
  {
   "name": "Protoit Tubize toituriers d'élite",
@@ -17,7 +18,8 @@
   "kw": "toiturier tubize",
   "city": "Tubize",
   "link": "https://maps.app.goo.gl/EmgbY3uGgAuicaDT7",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 21
  },
  {
   "name": "Perfect Dak toiturier Huldenberg",
@@ -27,7 +29,8 @@
   "kw": "dakwerker huldenberg",
   "city": "Huldenberg",
   "link": "https://maps.app.goo.gl/ZcJdx7QbAHrr4iKU9",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 21
  },
  {
   "name": "OttenDak toitures",
@@ -37,7 +40,8 @@
   "kw": "dakwerker huldenberg",
   "city": "Huldenberg",
   "link": "https://maps.app.goo.gl/iaMJBmsjVbeAD4v77",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 21
  },
  {
   "name": "Fleurus Toiture & Charpentes",
@@ -47,7 +51,8 @@
   "kw": "toiturier fleurus",
   "city": "Fleurus",
   "link": "https://maps.app.goo.gl/eoQVScVKEE5jHk658",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 21
  },
  {
   "name": "Eppegem Dakwerken-Toiture",
@@ -57,7 +62,8 @@
   "kw": "dakwerker eppegem",
   "city": "Eppegem",
   "link": "https://maps.app.goo.gl/ioLZtjpam8MpKGpg6",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 21
  },
  {
   "name": "DakVista Toiture Kampenhout",
@@ -67,7 +73,8 @@
   "kw": "dakwerker kampenhout",
   "city": "Kampenhout",
   "link": "https://maps.app.goo.gl/g19WLaK6gf4qQHSp8",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 21
  },
  {
   "name": "Dakwerker Tienen - Toiture Tirlemont",
@@ -77,7 +84,8 @@
   "kw": "dakwerker tienen",
   "city": "Tienen",
   "link": "https://maps.app.goo.gl/HY6q8y1kpj6ob6sS7",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 21
  },
  {
   "name": "Koningslo Dakservice & Toitures",
@@ -87,7 +95,8 @@
   "kw": "dakwerker koningslo",
   "city": "Koningslo",
   "link": "https://maps.app.goo.gl/FbSDhvHc4pWR28Lb9",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 21
  },
  {
   "name": "L'Atelier du Toit Wavre",
@@ -97,7 +106,8 @@
   "kw": "toiturier wavre",
   "city": "Wavre",
   "link": "https://maps.app.goo.gl/2Fu6vkkU4UhWcEwt6",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Artisanale Toiture d'Or Leuze - Pro Couvreur",
@@ -107,7 +117,8 @@
   "kw": "toiturier leuze",
   "city": "Leuze",
   "link": "https://maps.app.goo.gl/ifKEuKkSwNJhtXTn8",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Mons Service Pro Toiture",
@@ -117,7 +128,8 @@
   "kw": "toiturier mons",
   "city": "Mons",
   "link": "https://maps.app.goo.gl/agigJQfPVXpEQ1MH8",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Pro Toiturier Aarschot Dakomax",
@@ -127,7 +139,8 @@
   "kw": "dakwerker aarschot",
   "city": "Aarschot",
   "link": "https://maps.app.goo.gl/w2JkppH8i2Xnh3PB9",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Zaventem Toiturier Flash Dakdekker",
@@ -137,7 +150,8 @@
   "kw": "dakwerker zaventem",
   "city": "Zaventem",
   "link": "https://maps.app.goo.gl/6MJg2JXGHSDDHGWR6",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Le Toiturier Royal – Dakwerker Bertem",
@@ -147,7 +161,8 @@
   "kw": "dakwerker bertem",
   "city": "Bertem",
   "link": "https://maps.app.goo.gl/mm2iX7r2qN4wu7Ba8",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Maison Dakwerken Leuven",
@@ -157,7 +172,8 @@
   "kw": "dakwerker leuven",
   "city": "Leuven",
   "link": "https://maps.app.goo.gl/YzVaHRdd3fa8U7ii8",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Père et Fils artisan toituriers Ans",
@@ -167,7 +183,8 @@
   "kw": "toiturier ans",
   "city": "Ans",
   "link": "https://maps.app.goo.gl/Um4YEUSH1JZDqobX6",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Votre toiturier à Halle Dak Artisan",
@@ -177,7 +194,8 @@
   "kw": "dakwerker halle",
   "city": "Halle",
   "link": "https://maps.app.goo.gl/yB4dvTVAGLb9i7po8",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Le Nouveau Dak Tervuren",
@@ -187,7 +205,8 @@
   "kw": "dakwerker tervuren",
   "city": "Tervuren",
   "link": "https://maps.app.goo.gl/4vp7seMVi8AgHzxE7",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Rhode-Saint-Genèse Top Toiturier",
@@ -197,7 +216,8 @@
   "kw": "toiturier rhode saint genese",
   "city": "Rhode-Saint-Genèse",
   "link": "https://maps.app.goo.gl/m592CwjEFqvaQaz26",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Beau Dak – Toiture Beersel",
@@ -207,7 +227,8 @@
   "kw": "dakwerker beersel",
   "city": "Beersel",
   "link": "https://maps.app.goo.gl/Bh1cQ4h4nKRHgGZj9",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Gembloux toituriers Les Tuiles d'Or",
@@ -217,7 +238,8 @@
   "kw": "toiturier gembloux",
   "city": "Gembloux",
   "link": "https://maps.app.goo.gl/r687wtDoCjjmjX417",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Les Toitures de Ittre",
@@ -227,7 +249,8 @@
   "kw": "toiturier ittre",
   "city": "Ittre",
   "link": "https://maps.app.goo.gl/1L6k2R5qQUt3EnsJ6",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Uccle Pro Couverture / zinguerie charpente",
@@ -237,7 +260,8 @@
   "kw": "toiturier uccle",
   "city": "Uccle",
   "link": "https://maps.app.goo.gl/ibDhUXaQhzNVFBJb8",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Perfect Couverture Tubize toiturier",
@@ -247,7 +271,8 @@
   "kw": "toiturier tubize",
   "city": "Tubize",
   "link": "https://maps.app.goo.gl/wNGmry5mZtW2SAmd6",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "L'Artisan Référence – Toiturier Genappe",
@@ -257,7 +282,8 @@
   "kw": "toiturier genappe",
   "city": "Genappe",
   "link": "https://maps.app.goo.gl/MAyDsL5SFJgoz89dA",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Mon Toiturier à Woluwe-Saint-Pierre",
@@ -267,7 +293,8 @@
   "kw": "toiturier woluwe saint pierre",
   "city": "Woluwe-Saint-Pierre",
   "link": "https://maps.app.goo.gl/ieKPKkNTzrGC8ru88",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Les Toitures de Lasne",
@@ -277,7 +304,8 @@
   "kw": "toiturier lasne",
   "city": "Lasne",
   "link": "https://maps.app.goo.gl/Ld8FKg6VScKXy4xq8",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Toituriers Kraainem l'élite",
@@ -287,7 +315,8 @@
   "kw": "toiturier kraainem",
   "city": "Kraainem",
   "link": "https://maps.app.goo.gl/kkBNXm1Wj9BbZGET7",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Maison Rénovation Toiture Namur",
@@ -297,7 +326,8 @@
   "kw": "toiturier namur",
   "city": "Namur",
   "link": "https://maps.app.goo.gl/EpDucZNYicXgN4PYA",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Best Toiture Liège couvreur artisan",
@@ -307,7 +337,8 @@
   "kw": "toiturier liege",
   "city": "Liège",
   "link": "https://maps.app.goo.gl/hFZC1MYRURdanaMt7",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Les Pro Toiture Soignies",
@@ -317,7 +348,8 @@
   "kw": "toiturier soignies",
   "city": "Soignies",
   "link": "https://maps.app.goo.gl/iN6z3kZtpiWhPzt9A",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Eghezée maître artisan couvreur",
@@ -327,7 +359,8 @@
   "kw": "toiturier eghezee",
   "city": "Eghezée",
   "link": "https://maps.app.goo.gl/beMThitEjgqxsmuK6",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Élite Courcelles pro toiturier",
@@ -337,7 +370,8 @@
   "kw": "toiturier courcelles",
   "city": "Courcelles",
   "link": "https://maps.app.goo.gl/oQr6EhCbjuqFePjH9",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Toiturier L'Échelle d'Or Grez-Doiceau",
@@ -347,7 +381,8 @@
   "kw": "toiturier grez doiceau",
   "city": "Grez-Doiceau",
   "link": "https://maps.app.goo.gl/sdDxicgfvNNicXbHA",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Pro Toiture Le Roi de la Couverture Charleroi",
@@ -357,7 +392,8 @@
   "kw": "toiturier charleroi",
   "city": "Charleroi",
   "link": "https://maps.app.goo.gl/cGrAyMoB14xL81ccA",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Villers-la-Ville expert toiturier",
@@ -367,7 +403,8 @@
   "kw": "toiturier villers la ville",
   "city": "Villers-la-Ville",
   "link": "https://maps.app.goo.gl/GHMQ6C6MiCyLze9C7",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Toiturier Père Fils 2025 Nivelles",
@@ -377,7 +414,8 @@
   "kw": "toiturier nivelles",
   "city": "Nivelles",
   "link": "https://maps.app.goo.gl/MhL3VDbxT7N28EzLA",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Expertise Rénovation toiturier Incourt",
@@ -387,7 +425,8 @@
   "kw": "toiturier incourt",
   "city": "Incourt",
   "link": "https://maps.app.goo.gl/DrTU223eL12E6LPw5",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Couvreur toiturier Brainois",
@@ -397,7 +436,8 @@
   "kw": "toiturier braine",
   "city": "Braine",
   "link": "https://maps.app.goo.gl/KBYJvqnrwLNFYTrJ8",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Perwez Maison Rénovation",
@@ -407,7 +447,8 @@
   "kw": "toiturier perwez",
   "city": "Perwez",
   "link": "https://maps.app.goo.gl/KKg75ff5ufBqsyXN7",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Ottignies Couverture & Ardoises",
@@ -417,7 +458,8 @@
   "kw": "toiturier ottignies",
   "city": "Ottignies",
   "link": "https://maps.app.goo.gl/g5wsRjjWGUh7NTbC6",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Dakdekker & Toiturier du Soleil – Overijse",
@@ -427,7 +469,8 @@
   "kw": "dakwerker overijse",
   "city": "Overijse",
   "link": "https://maps.app.goo.gl/2SMiMmAXdFaGog8UA",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Rénovation Dak & Toit – Kortenberg",
@@ -437,7 +480,8 @@
   "kw": "dakwerker kortenberg",
   "city": "Kortenberg",
   "link": "https://maps.app.goo.gl/FgiSxVKDWqqMqAix5",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Eppegem Dakwerken (2e fiche Zemst)",
@@ -447,7 +491,8 @@
   "kw": "dakwerker zemst",
   "city": "Zemst",
   "link": "https://maps.app.goo.gl/WtmQtdy3fQPEpzDy8",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  },
  {
   "name": "Toiturier Loyens Dakwerken Tongres",
@@ -457,6 +502,7 @@
   "kw": "dakwerker tongres",
   "city": "Tongres",
   "link": "https://maps.app.goo.gl/RN2hvP9FkBpZ7t9d8",
-  "region": "Belgique"
+  "region": "Belgique",
+  "obj": 20
  }
 ]

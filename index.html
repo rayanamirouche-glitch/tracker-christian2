@@ -59,9 +59,10 @@ tr.alert{background:#fef2f2}tr.alert:hover{background:#fee2e2}
 <div class="stat"><div class="stat-lbl">Note moyenne</div><div class="stat-val" id="stNote">—</div></div>
 <div class="stat"><div class="stat-lbl">Fiches liées</div><div class="stat-val" id="stLink">—</div></div>
 <div class="stat"><div class="stat-lbl">Top 3 local</div><div class="stat-val" id="stTop">—</div></div>
+<div class="stat"><div class="stat-lbl">Objectif +929</div><div class="stat-val" id="stObj">—</div><div class="objbar"><div class="objfill" id="objFill" style="width:0%"></div></div></div>
 </div>
 <div class="chartbox"><canvas id="chart" height="90"></canvas></div>
-<table><thead><tr><th>#</th><th>Fiche</th><th>Ville</th><th>Avis</th><th>⭐</th><th>Position</th><th>J-2·J-1·J</th></tr></thead>
+<table><thead><tr><th>#</th><th>Fiche</th><th>Ville</th><th>Avis</th><th>⭐</th><th>Position</th><th>Objectif</th><th>J-2·J-1·J</th></tr></thead>
 <tbody id="tbody"></tbody></table>
 <div class="foot">R.Consulting · snapshot avis chaque nuit 3h UTC · classements auto le lundi</div>
 </div>
@@ -130,10 +131,21 @@ function render(){
     }
 
     const star = (a && a.r) ? '<span class="star">' + a.r.toFixed(1) + ' ★</span>' : '<span class="fcity">—</span>';
+    let objCell = '<span class="fcity">—</span>';
+    if (f.obj && BASE[f.name] != null && n != null) {
+      const gained = Math.max(0, n - BASE[f.name]);
+      const pct = Math.min(100, Math.round(gained / f.obj * 100));
+      const doneCls = gained >= f.obj ? ' done' : '';
+      const fillCls = gained >= f.obj ? '' : ' part';
+      objCell = '<div class="objcell"><span class="objtxt' + doneCls + '">+' + gained + ' / +' + f.obj + (gained >= f.obj ? ' \u2713' : '') + '</span>' +
+        '<div class="minibar"><div class="minifill' + fillCls + '" style="width:' + pct + '%"></div></div></div>';
+    } else if (f.obj) {
+      objCell = '<span class="fcity">+0 / +' + f.obj + '</span>';
+    }
     const alertCls = (!pid || dropped) ? ' class="alert"' : '';
     return '<tr' + alertCls + '><td class="fcity">' + String(i+1).padStart(2,'0') + '</td>' +
       '<td><a class="fname" href="' + mapsUrl + '" target="_blank" rel="noopener">' + f.name + '</a></td>' +
-      '<td class="fcity">' + f.city + '</td><td>' + avisCell + '</td><td>' + star + '</td><td>' + posCell + '</td>' + c3cell(f.name) + '</tr>';
+      '<td class="fcity">' + f.city + '</td><td>' + avisCell + '</td><td>' + star + '</td><td>' + posCell + '</td><td>' + objCell + '</td>' + c3cell(f.name) + '</tr>';
   }).join('');
 
   $('tbody').innerHTML = rows;
@@ -142,6 +154,15 @@ function render(){
   $('stNote').textContent = notes.length ? (notes.reduce((a,b)=>a+b,0)/notes.length).toFixed(2) + ' ★' : '—';
   $('stLink').textContent = linked + ' / ' + fiches.length;
   $('stTop').textContent = top3;
+  let gTot = 0, gObj = 0;
+  fiches.forEach(f => {
+    if (!f.obj) return;
+    gObj += f.obj;
+    const a = aNow[f.name];
+    if (a && a.n != null && BASE[f.name] != null) gTot += Math.max(0, a.n - BASE[f.name]);
+  });
+  $('stObj').textContent = '+' + gTot + ' / +' + gObj;
+  $('objFill').style.width = (gObj ? Math.min(100, gTot / gObj * 100) : 0) + '%';
 
   const ds = dates(avis);
   const totals = ds.map(d => Object.values(avis[d]).reduce((s,v) => s + (v && v.n ? v.n : 0), 0));
@@ -163,7 +184,7 @@ async function runAvis(){
 async function runRank(){
   if(!confirm('Relever les classements maintenant ?')) return;
   $('btnRank').disabled = true;
-  const n = (DATA && DATA.fiches ? DATA.fiches.length : 43);
+  const n = (DATA && DATA.fiches ? DATA.fiches.length : 46);
   const waves = [];
   for (let s = 0; s < n; s += 10) waves.push(s);
   try{
