@@ -42,6 +42,20 @@ exports.handler = async (event) => {
         }, null, 1)
       };
     }
+    if (q.type === 'purge') {
+      if (!q.date || !/^\d{4}-\d{2}-\d{2}$/.test(q.date)) {
+        return { statusCode: 400, body: JSON.stringify({ error: 'date requise, format ?type=purge&date=2026-08-26' }) };
+      }
+      const store = getStore('tracker');
+      const avis = (await store.get('avis', { type: 'json' })) || {};
+      if (!avis[q.date]) {
+        return { statusCode: 200, headers: { 'Access-Control-Allow-Origin': '*' }, body: JSON.stringify({ ok: true, note: 'aucun snapshot à cette date, rien à purger' }) };
+      }
+      const nb = Object.keys(avis[q.date]).length;
+      delete avis[q.date];
+      await store.setJSON('avis', avis);
+      return { statusCode: 200, headers: { 'Access-Control-Allow-Origin': '*' }, body: JSON.stringify({ ok: true, purge: q.date, fiches_supprimees_du_snapshot: nb }) };
+    }
     if (q.type === 'diag2') {
       const store = getStore('tracker');
       const avis = (await store.get('avis', { type: 'json' })) || {};
