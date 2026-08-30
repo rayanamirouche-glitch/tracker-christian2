@@ -238,6 +238,7 @@ function render(){
     .forEach(c => { c.style.display = _anyObj ? '' : 'none'; });
   applyView();
   const dTot = totPrev ? pairNow - totPrev : 0;
+  document.title = 'Tracker Christian 2 — ' + total + ' avis';
   $('stTotal').innerHTML = total + (dTot > 0 ? '<small>+' + dTot + '</small>' : '');
   $('stDay').textContent = totPrev ? ((dTot > 0 ? '+' : '') + dTot) : '—';
   $('stNote').textContent = notes.length ? (notes.reduce((a,b)=>a+b,0)/notes.length).toFixed(2) + ' ★' : '—';
