@@ -63,7 +63,7 @@
   "city": "Eppegem",
   "link": "https://maps.app.goo.gl/ioLZtjpam8MpKGpg6",
   "region": "Belgique",
-  "obj": 21
+  "obj": 41
  },
  {
   "name": "DakVista Toiture Kampenhout",
@@ -480,17 +480,6 @@
   "kw": "dakwerker kortenberg",
   "city": "Kortenberg",
   "link": "https://maps.app.goo.gl/FgiSxVKDWqqMqAix5",
-  "region": "Belgique",
-  "obj": 20
- },
- {
-  "name": "Eppegem Dakwerken (2e fiche Zemst)",
-  "q": "eppegem dakwerken toiture zemst",
-  "target": "eppegem dakwerken",
-  "ll": "50.983,4.462",
-  "kw": "dakwerker zemst",
-  "city": "Zemst",
-  "link": "https://maps.app.goo.gl/WtmQtdy3fQPEpzDy8",
   "region": "Belgique",
   "obj": 20
  },
