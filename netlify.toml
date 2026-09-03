@@ -1,10 +1,9 @@
 [functions]
   node_bundler = "esbuild"
 
-# TEMPORAIRE (30/08/2026) : releve quotidien pendant la purge d'avis Google.
-# A remettre en "0 3 */2 * *" une fois la situation stabilisee (quota : 4545/5000 appels/mois en quotidien).
-[functions."snapshot_avis"]
-  schedule = "0 3 * * *"
+# Releve des avis : PAS de planification (decision client du 2026-09-02).
+# Chaque appel Places = SKU Enterprise facture ; le client releve lui-meme
+# le tracker qu'il veut via le bouton "Actualiser AVIS".
 
 [functions."snapshot_rank"]
   schedule = "30 6 * * 1"
